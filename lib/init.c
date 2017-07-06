@@ -5,7 +5,6 @@
 #include <math.h>
 #include "mcce.h"
 
-ENV env;
 
 int init() {
     FILE *fp;
@@ -14,7 +13,7 @@ int init() {
 
     printf("   Load run control file \"%s\"...\n", FN_RUNPRM);
     fflush(stdout);
-    if (get_env()) {
+    if (get_env() < 0) {
         printf("   FATAL: init(): \"failed initializing.\"\n");
         return USERERR;
     } else {
@@ -122,6 +121,7 @@ int get_env()
     FILE *tr;
     char trbuff[256];
     FILE *ent;
+    ENV env;
 
     memset(&env, 0, sizeof(ENV));
 

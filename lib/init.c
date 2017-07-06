@@ -78,25 +78,35 @@ int init()
      * 3. default value from env.epsilon_prot
      */
     kscale = 1.0; /*/env.epsilon_prot;*/ /* scaling factor based on dielectric constant */
-    if (env.scale_vdw0 < 0) {
-    	if (param_get("SCALING", "VDW0", "", &env.scale_vdw0))  env.scale_vdw0   = 1.0*kscale;
+    if ((env.scale_vdw0 < 0) && (param_get("SCALING", "VDW0", "", &env.scale_vdw0))) {
+        env.scale_vdw0 = 1.0 * kscale;
     }
-    if (env.scale_vdw1 < 0) {
-    	if (param_get("SCALING", "VDW1",  "", &env.scale_vdw1)) env.scale_vdw1   = 1.0*kscale;
+    if ((env.scale_vdw1 < 0) && (param_get("SCALING", "VDW1",  "", &env.scale_vdw1))) {
+	env.scale_vdw1 = 1.0 * kscale;
     }
-    if (env.scale_vdw < 0) {
-    	if (param_get("SCALING", "VDW",   "", &env.scale_vdw)) env.scale_vdw     = 1.0*kscale;
+    if ((env.scale_vdw < 0) && (param_get("SCALING", "VDW",   "", &env.scale_vdw))) {
+            env.scale_vdw = 1.0 * kscale;
     }
-    if (param_get("SCALING", "TORS",  "", &env.scale_tor)) env.scale_tor     = 1.0*kscale;
-    if (param_get("SCALING", "ELE",   "", &env.scale_ele)) env.scale_ele     = 1.0;
-    if (param_get("SCALING", "DSOLV", "", &env.scale_dsolv)) env.scale_dsolv = 1.0;
+    if (param_get("SCALING", "TORS",  "", &env.scale_tor)) {
+        env.scale_tor = 1.0 * kscale;
+    }
+    if (param_get("SCALING", "ELE",   "", &env.scale_ele)) {
+        env.scale_ele = 1.0;
+    }
+    if (param_get("SCALING", "DSOLV", "", &env.scale_dsolv)) {
+        env.scale_dsolv = 1.0;
+    }
 
     remove(env.debug_log);
     remove(env.progress_log);
 	
     now = time(NULL);
-    if (env.test_seed < 0) srand(now); //allows random numbers to be fixed for testing
-    else srand(env.test_seed);
+    if (env.test_seed < 0) {
+        srand(now); //allows random numbers to be fixed for testing
+    }
+    else {
+        srand(env.test_seed);
+    }
 
     return 0;
 }

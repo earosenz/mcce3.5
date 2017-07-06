@@ -70,7 +70,7 @@ int init()
     remove(env.debug_log);
     remove(env.progress_log);
 	
-	now = time(NULL);
+    now = time(NULL);
     if (env.test_seed < 0) srand(now); //allows random numbers to be fixed for testing
     else srand(env.test_seed);
 
@@ -205,9 +205,9 @@ int get_env()
     
     env.warn_pairwise     = 20.0;
     env.big_pairwise      = 5.0;
-/*
-    env.monte_adv_opt     =    1;
-*/
+    /*
+      env.monte_adv_opt     =    1;
+    */
     env.monte_adv_opt     =    0;      /* defaut value in mcce2.5    ----Cai */
 
     env.anneal_temp_start = ROOMT;
@@ -280,11 +280,11 @@ int get_env()
     /* user values */
     while (fgets(sbuff, sizeof(sbuff), fp)) {
     	if (sbuff[0] == '#') {
-             continue;
+            continue;
         }
     	if (strstr(sbuff, "(DO_TRACE)")) {
-        	str1 = strtok(sbuff, " ");
-        	if (str1[0] == 't') dotrace = 1;
+            str1 = strtok(sbuff, " ");
+            if (str1[0] == 't') dotrace = 1;
         }
         else if (strstr(sbuff, "(TEST_SEED)")) {
             env.test_seed = atoi(strtok(sbuff, " "));
@@ -794,56 +794,56 @@ int get_env()
             else env.delphi_clean = 0;
         }
         else if (strstr(sbuff, "(PBE_SOLVER)")) {
-             strcpy(sbuff, strtok(sbuff, " "));
-             if (strstr(sbuff, "apbs") || strstr(sbuff, "APBS")) {
+            strcpy(sbuff, strtok(sbuff, " "));
+            if (strstr(sbuff, "apbs") || strstr(sbuff, "APBS")) {
                 strcpy(env.pbe_solver, "apbs");
-             }
-             else if (strstr(sbuff, "delphi") || strstr(sbuff, "DELPHI")) {
+            }
+            else if (strstr(sbuff, "delphi") || strstr(sbuff, "DELPHI")) {
                 strcpy(env.pbe_solver, "delphi");
- 	    	 }
- 	    	 else if (strstr(sbuff, "zap") || strstr(sbuff, "ZAP")) {
+            }
+            else if (strstr(sbuff, "zap") || strstr(sbuff, "ZAP")) {
                 strcpy(env.pbe_solver, "zap");
- 	    	 }
-             else {
-                 printf("\n   Not known PBE solver: \"%s\". Using delphi in step 3...\n", sbuff);
-                 strcpy(env.pbe_solver, "delphi");
-             }
-         }
- 		else if (strstr(sbuff, "(RXN_METHOD)")) {
-             strcpy(sbuff, strtok(sbuff, " "));
-             if (strstr(sbuff, "self") || strstr(sbuff, "SELF")) {
+            }
+            else {
+                printf("\n   Not known PBE solver: \"%s\". Using delphi in step 3...\n", sbuff);
+                strcpy(env.pbe_solver, "delphi");
+            }
+        }
+        else if (strstr(sbuff, "(RXN_METHOD)")) {
+            strcpy(sbuff, strtok(sbuff, " "));
+            if (strstr(sbuff, "self") || strstr(sbuff, "SELF")) {
                 strcpy(env.rxn_method, "self");
-             }
-             else if (strstr(sbuff, "ntsurface") || strstr(sbuff, "NTSURFACE")) {
+            }
+            else if (strstr(sbuff, "ntsurface") || strstr(sbuff, "NTSURFACE")) {
                 strcpy(env.rxn_method, "ntsurface");
- 	    	 }
-             else if (strstr(sbuff, "surface") || strstr(sbuff, "SURFACE")) {
+            }
+            else if (strstr(sbuff, "surface") || strstr(sbuff, "SURFACE")) {
                 strcpy(env.rxn_method, "surface");
- 	    	 }
-             else {
-                 printf("\n   Not known RXN method: \"%s\". Using self energies in step 3...\n", sbuff);
-                 strcpy(env.rxn_method, "self");
-             }
-         }
+            }
+            else {
+                printf("\n   Not known RXN method: \"%s\". Using self energies in step 3...\n", sbuff);
+                strcpy(env.rxn_method, "self");
+            }
+        }
  	/* apbs*/
  	else if (strstr(sbuff, "(GRIDS_APBS)")) {
-             env.grids_apbs = atoi(strtok(sbuff, " "));
-         }
+            env.grids_apbs = atoi(strtok(sbuff, " "));
+        }
  	else if (strstr(sbuff, "(SURFACE_APBS)")) {
-             strcpy(env.srfm, strtok(sbuff, " "));
-         }
+            strcpy(env.srfm, strtok(sbuff, " "));
+        }
  	else if (strstr(sbuff, "(CHARGES_APBS)")) {
-             strcpy(env.chgm, strtok(sbuff, " "));
-         }
+            strcpy(env.chgm, strtok(sbuff, " "));
+        }
  	else if (strstr(sbuff, "(BOUND_COND_APBS)")) {
-             strcpy(env.bcfl, strtok(sbuff, " "));
-         }
+            strcpy(env.bcfl, strtok(sbuff, " "));
+        }
  	else if (strstr(sbuff, "(FINE_SCALE)")) {
-             env.fg_scale = atof(strtok(sbuff, " "));
-         }
+            env.fg_scale = atof(strtok(sbuff, " "));
+        }
  	else if (strstr(sbuff, "(APBS_EXE)")) {
-             strcpy(env.apbs_exe, strtok(sbuff, " "));
-         }
+            strcpy(env.apbs_exe, strtok(sbuff, " "));
+        }
 
 
         /* IPECE */
@@ -866,74 +866,74 @@ int get_env()
         }
         /*Pascal's MSC Ga Parameters*/
         else if (strstr(sbuff, "(GA_POP_SIZE")) {
-                env.pop_size = atoi(strtok(sbuff, " "));
+            env.pop_size = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_MUTATION_RATE)")) {
-                env.mutation_rate = atof(strtok(sbuff, " "));
+            env.mutation_rate = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_MIGRATION_RATE)")) {
-                env.migration_rate = atof(strtok(sbuff, " "));
+            env.migration_rate = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_CROSSOVER_RATE)")) {
-                env.xover_rate = atof(strtok(sbuff, " "));
+            env.xover_rate = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_RANDOM_CUT_POINTS)")) {
-                env.rand_cut_points = atoi(strtok(sbuff, " "));
+            env.rand_cut_points = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_SEED)")) {
-                env.ga_seed = atoi(strtok(sbuff, " "));
+            env.ga_seed = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_GENERATIONS)")) {
-                env.generations = atoi(strtok(sbuff, " "));
+            env.generations = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_PHASE)")) {
-                env.ga_phase = atoi(strtok(sbuff, " "));
+            env.ga_phase = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_SHIFT)")) {
-                env.ga_shift = atoi(strtok(sbuff, " "));
+            env.ga_shift = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_DIST_CENTER)")) {
-                env.ga_dist_center = atof(strtok(sbuff, " "));
+            env.ga_dist_center = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_DIST_CENTER_EPS)")) {
-                env.ga_dist_center_eps = atof(strtok(sbuff, " "));
+            env.ga_dist_center_eps = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_MAX_BUCKET_POP)")) {
-                env.pop_bucket = atoi(strtok(sbuff, " "));
+            env.pop_bucket = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_RESIDUE_MIN_ENERGY_CUTOFF)")) {
-                env.residue_check = atof(strtok(sbuff, " "));
+            env.residue_check = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_OCCUPANCY_CUTOFF)")) {
-                env.occupancy = atof(strtok(sbuff, " "));
+            env.occupancy = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_DELTA_E)")) {
-                env.ga_deltaE = atof(strtok(sbuff, " "));
+            env.ga_deltaE = atof(strtok(sbuff, " "));
         }
         else if(strstr(sbuff,"(SIDECHAIN_OPT)")) {
-                env.sidechain_opt = atoi(strtok(sbuff, " "));
-                if (env.sidechain_opt == 2) {
-                	env.sidechain_opt = 1;
-                	env.rot_mhd_prune = 1;
-                }
+            env.sidechain_opt = atoi(strtok(sbuff, " "));
+            if (env.sidechain_opt == 2) {
+                env.sidechain_opt = 1;
+                env.rot_mhd_prune = 1;
+            }
         }
         else if(strstr(sbuff,"(GA_OUTPUT)")) {
-                env.output = atoi(strtok(sbuff, " "));
+            env.output = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_SPHERE_FOCUS_RESID)")) {
-                env.ga_focus_resid = atoi(strtok(sbuff, " "));
+            env.ga_focus_resid = atoi(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(GA_SPHERE_PROBE_RADIUS)")) {
-                env.ga_focus_probe_radius = atof(strtok(sbuff, " "));
+            env.ga_focus_probe_radius = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(MFE_CUTOFF)")) {
-                env.mfe_cutoff = atof(strtok(sbuff, " "));
+            env.mfe_cutoff = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(MFE_POINT)")) {
-                if (!(strchr(strtok(sbuff, " "), 'f'))) {
-                    env.mfe_flag = 1; 
-                    env.mfe_point = atof(strtok(sbuff, " "));
-                }
+            if (!(strchr(strtok(sbuff, " "), 'f'))) {
+                env.mfe_flag = 1; 
+                env.mfe_point = atof(strtok(sbuff, " "));
+            }
         }
 	
 	/* always_scale_vdw variable ----Cai */
@@ -975,7 +975,7 @@ int get_env()
             else env.only_backbone = 0;
         }
         else if (strstr(sbuff, "(COLUMN_NUMBER)")) {
-                env.column_number = atof(strtok(sbuff, " "));
+            env.column_number = atof(strtok(sbuff, " "));
         }
         else if (strstr(sbuff, "(DELPHI_POTENTIAL_EXE)")) {
             strcpy(env.delphi_potential_exe, strtok(sbuff, " "));
@@ -993,36 +993,36 @@ int get_env()
     sprintf(env.param, "%s/param%02d", env.mcce_home, (int) (env.epsilon_prot));
     
     /* sets env.ga_seed and env.monte_seed equal to env.test_seed if env.test_seed has been set to a 
-    non random value, eliminating all randomness from MCCE */
+       non random value, eliminating all randomness from MCCE */
     if (env.test_seed >= 1) {
     	env.monte_seed = env.test_seed;
     	env.ga_seed = env.test_seed;
     }
     	
 	
-	/*adds in the default behavior of the run.trace output*/
-	if (dotrace == 1) {
+    /*adds in the default behavior of the run.trace output*/
+    if (dotrace == 1) {
 		
-		if ((fp=fopen(FN_RUNPRM, "r")) == NULL) {
-        	printf("   FATAL: get_env(): \"No run control file %s.\"\n", FN_RUNPRM);
-        	return USERERR;
+        if ((fp=fopen(FN_RUNPRM, "r")) == NULL) {
+            printf("   FATAL: get_env(): \"No run control file %s.\"\n", FN_RUNPRM);
+            return USERERR;
         }
         if ((tr=fopen("run.trace", "a")) == NULL) {
-        	printf("   FATAL: get_env(): \"Cannot create run.trace file.\"\n");
-        	return USERERR;
+            printf("   FATAL: get_env(): \"Cannot create run.trace file.\"\n");
+            return USERERR;
         }
         
         /* this block grabs the subversion revision number from .svn/entries */
         if ((ent=fopen("/home/mcce/mcce2.5.1/.svn/entries", "r")) != NULL) {
-        	int i;
-        	for (i = 0; i < 4; ++i) {
-        		fgets(trbuff, sizeof(trbuff), ent);
-        	}
-        	fprintf(tr, "The MCCE directory revision number is: %s", trbuff);
-        	fclose(ent);
+            int i;
+            for (i = 0; i < 4; ++i) {
+                fgets(trbuff, sizeof(trbuff), ent);
+            }
+            fprintf(tr, "The MCCE directory revision number is: %s", trbuff);
+            fclose(ent);
         }
         else {
-        	fprintf(tr, "%s\n", "can't open entries file");
+            fprintf(tr, "%s\n", "can't open entries file");
         }
         
         /* this block prints a timestamp */
@@ -1034,503 +1034,503 @@ int get_env()
         fprintf(tr, "%31s%31s\t%31s%31s\n", "run.prm var name", "run.prm var value", "init.c var name", "init.c var value");
         
         while (fgets(trbuff, sizeof(trbuff), fp)) {
-			if (strstr(trbuff, "(ADDING_CONF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(ADDING_CONF)", strtok(trbuff, " "), "env.adding_conf", env.adding_conf);
-			}
-			else if (strstr(trbuff, "(ANNEAL_NITER_STEP)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(ANNEAL_NITER_STEP)", strtok(trbuff, " "), "env.anneal_niter_step", env.anneal_niter_step);
-			}
-			else if (strstr(trbuff, "(ANNEAL_NSTEP)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(ANNEAL_NSTEP)", strtok(trbuff, " "), "env.anneal_nstep", env.anneal_nstep);
-			}
-			else if (strstr(trbuff, "(ANNEAL_TEMP_START)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(ANNEAL_TEMP_START)", strtok(trbuff, " "), "env.anneal_temp_start", env.anneal_temp_start);
-			}
-			else if (strstr(trbuff, "(APBS_EXE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(APBS_EXE)", strtok(trbuff, " "), "env.apbs_exe", env.apbs_exe);
-			}
-			else if (strstr(trbuff, "(AVERAGE_PAIRWISE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(AVERAGE_PAIRWISE)", strtok(trbuff, " "), "env.average_pairwise", env.average_pairwise);
-			}
-			else if (strstr(trbuff, "(BIG_PAIRWISE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(BIG_PAIRWISE)", strtok(trbuff, " "), "env.big_pairwise", env.big_pairwise);
-			}
-			else if (strstr(trbuff, "(BOUND_COND_APBS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(BOUND_COND_APBS)", strtok(trbuff, " "), "env.bcfl", env.bcfl);
-			}
-			else if (strstr(trbuff, "(CHARGES_APBS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(CHARGES_APBS)", strtok(trbuff, " "), "env.chgm", env.chgm);
-			}
-			else if (strstr(trbuff, "(CLASH_DISTANCE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(CLASH_DISTANCE)", strtok(trbuff, " "), "env.clash_distance", env.clash_distance);
-			}
-			else if (strstr(trbuff, "(DEBUG_LOG)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(DEBUG_LOG)", strtok(trbuff, " "), "env.debug_log", env.debug_log);
-			}
-			else if (strstr(trbuff, "(DEFAULT_RADIUS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(DEFAULT_RADIUS)", strtok(trbuff, " "), "env.default_radius", env.default_radius);
-			}
-			else if (strstr(trbuff, "(DELPHI_CLEAN)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(DELPHI_CLEAN)", strtok(trbuff, " "), "env.delphi_clean", env.delphi_clean);
-			}
-			else if (strstr(trbuff, "(DELPHI_EXE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(DELPHI_EXE)", strtok(trbuff, " "), "env.delphi_exe", env.delphi_exe);
-			}
-			else if (strstr(trbuff, "(DELPHI_FAILS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(DELPHI_FAILS)", strtok(trbuff, " "), "env.delphi_fails", env.delphi_fails);
-			}
-			else if (strstr(trbuff, "(DO_ENERGY)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_ENERGY)", strtok(trbuff, " "), "env.do_energies", env.do_energies);
-			}
-			else if (strstr(trbuff, "(DO_MONTE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_MONTE)", strtok(trbuff, " "), "env.do_monte", env.do_monte);
-			}
-			else if (strstr(trbuff, "(DO_PREMCCE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_PREMCCE)", strtok(trbuff, " "), "env.do_premcce", env.do_premcce);
-			}
-			else if (strstr(trbuff, "(DO_ROTAMERS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_ROTAMERS)", strtok(trbuff, " "), "env.do_rotamers", env.do_rotamers);
-			}
-			else if (strstr(trbuff, "(EPSILON_SOLV)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(EPSILON_SOLV)", strtok(trbuff, " "), "env.epsilon_solv", env.epsilon_solv);
-			}
-			else if (strstr(trbuff, "(EPSILON_COULOMB)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(EPSILON_COULOMB)", strtok(trbuff, " "), "env.epsilon_coulomb", env.epsilon_coulomb);
-			}
-			else if (strstr(trbuff, "(EPSILON_PROT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(EPSILON_PROT)", strtok(trbuff, " "), "env.epsilon_prot", env.epsilon_prot);
-			}
-			else if (strstr(trbuff, "(EXTRA)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(EXTRA)", strtok(trbuff, " "), "env.extra", env.extra);
-			}
-			else if (strstr(trbuff, "(FACTOR_14LJ)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(FACTOR_14LJ)", strtok(trbuff, " "), "env.factor_14lj", env.factor_14lj);
-			}
-			else if (strstr(trbuff, "(FINE_SCALE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(FINE_SCALE)", strtok(trbuff, " "), "env.fg_scale", env.fg_scale);
-			}
-			else if (strstr(trbuff, "(GA_CROSSOVER_RATE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_CROSSOVER_RATE)", strtok(trbuff, " "), "env.xover_rate", env.xover_rate);
-			}
-			else if (strstr(trbuff, "(GA_DELTA_E)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_DELTA_E)", strtok(trbuff, " "), "env.ga_deltaE", env.ga_deltaE);
-			}
-			else if (strstr(trbuff, "(GA_DIST_CENTER)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_DIST_CENTER)", strtok(trbuff, " "), "env.ga_dist_center", env.ga_dist_center);
-			}
-			else if (strstr(trbuff, "(GA_DIST_CENTER_EPS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_DIST_CENTER_EPS)", strtok(trbuff, " "), "env.ga_dist_center_eps", env.ga_dist_center_eps);
-			}
-			else if (strstr(trbuff, "(GA_GENERATIONS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_GENERATIONS)", strtok(trbuff, " "), "env.generations", env.generations);
-			}
-			else if (strstr(trbuff, "(GA_MAX_BUCKET_POP)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_MAX_BUCKET_POP)", strtok(trbuff, " "), "env.pop_bucket", env.pop_bucket);
-			}
-			else if (strstr(trbuff, "(GA_MIGRATION_RATE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_MIGRATION_RATE)", strtok(trbuff, " "), "env.migration_rate", env.migration_rate);
-			}
-			else if (strstr(trbuff, "(GA_MUTATION_RATE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_MUTATION_RATE)", strtok(trbuff, " "), "env.mutation_rate", env.mutation_rate);
-			}
-			else if (strstr(trbuff, "(GA_OCCUPANCY_CUTOFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_OCCUPANCY_CUTOFF)", strtok(trbuff, " "), "env.occupancy", env.occupancy);
-			}
-			else if (strstr(trbuff, "(GA_OUTPUT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_OUTPUT)", strtok(trbuff, " "), "env.output", env.output);
-			}
-			else if (strstr(trbuff, "(GA_PHASE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_PHASE)", strtok(trbuff, " "), "env.ga_phase", env.ga_phase);
-			}
-			else if (strstr(trbuff, "(GA_RANDOM_CUT_POINTS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_RANDOM_CUT_POINTS)", strtok(trbuff, " "), "env.rand_cut_points", env.rand_cut_points);
-			}
-			else if (strstr(trbuff, "(GA_RESIDUE_MIN_ENERGY_CUTOFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_RESIDUE_MIN_ENERGY_CUTOFF)", strtok(trbuff, " "), "env.residue_check", env.residue_check);
-			}
-			else if (strstr(trbuff, "(GA_SEED)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_SEED)", strtok(trbuff, " "), "env.ga_seed", env.ga_seed);
-			}
-			else if (strstr(trbuff, "(GA_SHIFT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_SHIFT)", strtok(trbuff, " "), "env.ga_shift", env.ga_shift);
-			}
-			else if (strstr(trbuff, "(GA_SPHERE_FOCUS_RESID)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_SPHERE_FOCUS_RESID)", strtok(trbuff, " "), "env.ga_focus_resid", env.ga_focus_resid);
-			}
-			else if (strstr(trbuff, "(GA_SPHERE_PROBE_RADIUS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_SPHERE_PROBE_RADIUS)", strtok(trbuff, " "), "env.ga_focus_probe_radius", env.ga_focus_probe_radius);
-			}
-			else if (strstr(trbuff, "(GRIDS_APBS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GRIDS_APBS)", strtok(trbuff, " "), "env.grids_apbs", env.grids_apbs);
-			}
-			else if (strstr(trbuff, "(GRIDS_DELPHI)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(GRIDS_DELPHI)", strtok(trbuff, " "), "env.grids_delphi", env.grids_delphi);
-			}
-			else if (strstr(trbuff, "(GRIDS_PER_ANG)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(GRIDS_PER_ANG)", strtok(trbuff, " "), "env.grids_per_ang", env.grids_per_ang);
-			}
-			else if (strstr(trbuff, "(H2O_SASCUTOFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(H2O_SASCUTOFF)", strtok(trbuff, " "), "env.h2o_sascutoff", env.h2o_sascutoff);
-			}
-			else if (strstr(trbuff, "(HDIRDIFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HDIRDIFF)", strtok(trbuff, " "), "env.hdirdiff", env.hdirdiff);
-			}
-			else if (strstr(trbuff, "(HDIRECTED)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(HDIRECTED)", strtok(trbuff, " "), "env.hdirected", env.hdirected);
-			}
-			else if (strstr(trbuff, "(HDIRLIMT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(HDIRLIMT)", strtok(trbuff, " "), "env.hdirlimt", env.hdirlimt);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_ELEC_DIST_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_ELEC_DIST_THR)", strtok(trbuff, " "), "env.hv_relax_elec_dist_thr", env.hv_relax_elec_dist_thr);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_HV_VDW_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_HV_VDW_THR)", strtok(trbuff, " "), "env.hv_relax_hv_vdw_thr", env.hv_relax_hv_vdw_thr);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_NGH_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_NGH_THR)", strtok(trbuff, " "), "env.hv_relax_ngh_thr", env.hv_relax_ngh_thr);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_INCLUDE_NGH)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(HV_RELAX_INCLUDE_NGH)", strtok(trbuff, " "), "env.hv_relax_include_ngh", env.hv_relax_include_ngh);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_ELEC_CRG_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_ELEC_CRG_THR)", strtok(trbuff, " "), "env.hv_relax_elec_crg_thr", env.hv_relax_elec_crg_thr);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_ELEC_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_ELEC_THR)", strtok(trbuff, " "), "env.hv_relax_elec_thr", env.hv_relax_elec_thr);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_NCYCLE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(HV_RELAX_NCYCLE)", strtok(trbuff, " "), "env.hv_relax_ncycle", env.hv_relax_ncycle);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_N_SHAKE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(HV_RELAX_N_SHAKE)", strtok(trbuff, " "), "env.hv_relax_n_shake", env.hv_relax_n_shake);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_CONSTRAINT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_CONSTRAINT)", strtok(trbuff, " "), "env.hv_relax_constraint", env.hv_relax_constraint);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_SHAKE_TOL)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_SHAKE_TOL)", strtok(trbuff, " "), "env.hv_relax_shake_tol", env.hv_relax_shake_tol);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_CONSTRAINT_FRC)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_CONSTRAINT_FRC)", strtok(trbuff, " "), "env.hv_relax_constraint_frc", env.hv_relax_constraint_frc);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_NITER)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(HV_RELAX_NITER)", strtok(trbuff, " "), "env.hv_relax_niter", env.hv_relax_niter);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_DT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_DT)", strtok(trbuff, " "), "env.hv_relax_dt", env.hv_relax_dt);
-			}
-			else if (strstr(trbuff, "(HV_RELAX_VDW_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_VDW_THR)", strtok(trbuff, " "), "env.hv_relax_vdw_thr", env.hv_relax_vdw_thr);
-			}
-			else if (strstr(trbuff, "(HV_TORS_SCALE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_TORS_SCALE)", strtok(trbuff, " "), "env.hv_tors_scale", env.hv_tors_scale);
-			}
-			else if (strstr(trbuff, "(INPDB)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(INPDB)", strtok(trbuff, " "), "env.inpdb", env.inpdb);
-			}
-			else if (strstr(trbuff, "(IONRAD)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(IONRAD)", strtok(trbuff, " "), "env.ionrad", env.ionrad);
-			}
-			else if (strstr(trbuff, "(IPECE_ADD_MEM)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(IPECE_ADD_MEM)", strtok(trbuff, " "), "env.ipece", env.ipece);
-			}
-			else if (strstr(trbuff, "(IPECE_GRID_SPACE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(IPECE_GRID_SPACE)", strtok(trbuff, " "), "env.ipece", env.ipece);
-			}
-			else if (strstr(trbuff, "(IPECE_MEM_CHAINID)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(IPECE_MEM_CHAINID)", strtok(trbuff, " "), "env.ipece", env.ipece);
-			}
-			else if (strstr(trbuff, "(IPECE_MEM_THICKNESS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(IPECE_MEM_THICKNESS)", strtok(trbuff, " "), "env.ipece", env.ipece);
-			}
-			else if (strstr(trbuff, "(IPECE_MEM_ATOM_RADIUS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(IPECE_MEM_ATOM_RADIUS)", strtok(trbuff, " "), "env.ipece", env.ipece);
-			}
-			else if (strstr(trbuff, "(MCCE_HOME)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(MCCE_HOME)", strtok(trbuff, " "), "env.mcce_home", env.mcce_home);
-			}
-			else if (strstr(trbuff, "(MFE_CUTOFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(MFE_CUTOFF)", strtok(trbuff, " "), "env.mfe_cutoff", env.mfe_cutoff);
-			}
-			else if (strstr(trbuff, "(MFE_POINT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MFE_POINT)", strtok(trbuff, " "), "env.mfe_flag", env.mfe_flag);
-			}
-			else if (strstr(trbuff, "(MINIMIZE_SIZE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MINIMIZE_SIZE)", strtok(trbuff, " "), "env.minimize_size", env.minimize_size);
-			}
-			else if (strstr(trbuff, "(MONTE_ADV_OPT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_ADV_OPT)", strtok(trbuff, " "), "env.monte_adv_opt", env.monte_adv_opt);
-			}
+            if (strstr(trbuff, "(ADDING_CONF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(ADDING_CONF)", strtok(trbuff, " "), "env.adding_conf", env.adding_conf);
+            }
+            else if (strstr(trbuff, "(ANNEAL_NITER_STEP)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(ANNEAL_NITER_STEP)", strtok(trbuff, " "), "env.anneal_niter_step", env.anneal_niter_step);
+            }
+            else if (strstr(trbuff, "(ANNEAL_NSTEP)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(ANNEAL_NSTEP)", strtok(trbuff, " "), "env.anneal_nstep", env.anneal_nstep);
+            }
+            else if (strstr(trbuff, "(ANNEAL_TEMP_START)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(ANNEAL_TEMP_START)", strtok(trbuff, " "), "env.anneal_temp_start", env.anneal_temp_start);
+            }
+            else if (strstr(trbuff, "(APBS_EXE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(APBS_EXE)", strtok(trbuff, " "), "env.apbs_exe", env.apbs_exe);
+            }
+            else if (strstr(trbuff, "(AVERAGE_PAIRWISE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(AVERAGE_PAIRWISE)", strtok(trbuff, " "), "env.average_pairwise", env.average_pairwise);
+            }
+            else if (strstr(trbuff, "(BIG_PAIRWISE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(BIG_PAIRWISE)", strtok(trbuff, " "), "env.big_pairwise", env.big_pairwise);
+            }
+            else if (strstr(trbuff, "(BOUND_COND_APBS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(BOUND_COND_APBS)", strtok(trbuff, " "), "env.bcfl", env.bcfl);
+            }
+            else if (strstr(trbuff, "(CHARGES_APBS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(CHARGES_APBS)", strtok(trbuff, " "), "env.chgm", env.chgm);
+            }
+            else if (strstr(trbuff, "(CLASH_DISTANCE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(CLASH_DISTANCE)", strtok(trbuff, " "), "env.clash_distance", env.clash_distance);
+            }
+            else if (strstr(trbuff, "(DEBUG_LOG)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(DEBUG_LOG)", strtok(trbuff, " "), "env.debug_log", env.debug_log);
+            }
+            else if (strstr(trbuff, "(DEFAULT_RADIUS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(DEFAULT_RADIUS)", strtok(trbuff, " "), "env.default_radius", env.default_radius);
+            }
+            else if (strstr(trbuff, "(DELPHI_CLEAN)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(DELPHI_CLEAN)", strtok(trbuff, " "), "env.delphi_clean", env.delphi_clean);
+            }
+            else if (strstr(trbuff, "(DELPHI_EXE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(DELPHI_EXE)", strtok(trbuff, " "), "env.delphi_exe", env.delphi_exe);
+            }
+            else if (strstr(trbuff, "(DELPHI_FAILS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(DELPHI_FAILS)", strtok(trbuff, " "), "env.delphi_fails", env.delphi_fails);
+            }
+            else if (strstr(trbuff, "(DO_ENERGY)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_ENERGY)", strtok(trbuff, " "), "env.do_energies", env.do_energies);
+            }
+            else if (strstr(trbuff, "(DO_MONTE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_MONTE)", strtok(trbuff, " "), "env.do_monte", env.do_monte);
+            }
+            else if (strstr(trbuff, "(DO_PREMCCE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_PREMCCE)", strtok(trbuff, " "), "env.do_premcce", env.do_premcce);
+            }
+            else if (strstr(trbuff, "(DO_ROTAMERS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_ROTAMERS)", strtok(trbuff, " "), "env.do_rotamers", env.do_rotamers);
+            }
+            else if (strstr(trbuff, "(EPSILON_SOLV)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(EPSILON_SOLV)", strtok(trbuff, " "), "env.epsilon_solv", env.epsilon_solv);
+            }
+            else if (strstr(trbuff, "(EPSILON_COULOMB)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(EPSILON_COULOMB)", strtok(trbuff, " "), "env.epsilon_coulomb", env.epsilon_coulomb);
+            }
+            else if (strstr(trbuff, "(EPSILON_PROT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(EPSILON_PROT)", strtok(trbuff, " "), "env.epsilon_prot", env.epsilon_prot);
+            }
+            else if (strstr(trbuff, "(EXTRA)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(EXTRA)", strtok(trbuff, " "), "env.extra", env.extra);
+            }
+            else if (strstr(trbuff, "(FACTOR_14LJ)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(FACTOR_14LJ)", strtok(trbuff, " "), "env.factor_14lj", env.factor_14lj);
+            }
+            else if (strstr(trbuff, "(FINE_SCALE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(FINE_SCALE)", strtok(trbuff, " "), "env.fg_scale", env.fg_scale);
+            }
+            else if (strstr(trbuff, "(GA_CROSSOVER_RATE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_CROSSOVER_RATE)", strtok(trbuff, " "), "env.xover_rate", env.xover_rate);
+            }
+            else if (strstr(trbuff, "(GA_DELTA_E)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_DELTA_E)", strtok(trbuff, " "), "env.ga_deltaE", env.ga_deltaE);
+            }
+            else if (strstr(trbuff, "(GA_DIST_CENTER)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_DIST_CENTER)", strtok(trbuff, " "), "env.ga_dist_center", env.ga_dist_center);
+            }
+            else if (strstr(trbuff, "(GA_DIST_CENTER_EPS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_DIST_CENTER_EPS)", strtok(trbuff, " "), "env.ga_dist_center_eps", env.ga_dist_center_eps);
+            }
+            else if (strstr(trbuff, "(GA_GENERATIONS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_GENERATIONS)", strtok(trbuff, " "), "env.generations", env.generations);
+            }
+            else if (strstr(trbuff, "(GA_MAX_BUCKET_POP)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_MAX_BUCKET_POP)", strtok(trbuff, " "), "env.pop_bucket", env.pop_bucket);
+            }
+            else if (strstr(trbuff, "(GA_MIGRATION_RATE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_MIGRATION_RATE)", strtok(trbuff, " "), "env.migration_rate", env.migration_rate);
+            }
+            else if (strstr(trbuff, "(GA_MUTATION_RATE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_MUTATION_RATE)", strtok(trbuff, " "), "env.mutation_rate", env.mutation_rate);
+            }
+            else if (strstr(trbuff, "(GA_OCCUPANCY_CUTOFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_OCCUPANCY_CUTOFF)", strtok(trbuff, " "), "env.occupancy", env.occupancy);
+            }
+            else if (strstr(trbuff, "(GA_OUTPUT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_OUTPUT)", strtok(trbuff, " "), "env.output", env.output);
+            }
+            else if (strstr(trbuff, "(GA_PHASE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_PHASE)", strtok(trbuff, " "), "env.ga_phase", env.ga_phase);
+            }
+            else if (strstr(trbuff, "(GA_RANDOM_CUT_POINTS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_RANDOM_CUT_POINTS)", strtok(trbuff, " "), "env.rand_cut_points", env.rand_cut_points);
+            }
+            else if (strstr(trbuff, "(GA_RESIDUE_MIN_ENERGY_CUTOFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_RESIDUE_MIN_ENERGY_CUTOFF)", strtok(trbuff, " "), "env.residue_check", env.residue_check);
+            }
+            else if (strstr(trbuff, "(GA_SEED)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_SEED)", strtok(trbuff, " "), "env.ga_seed", env.ga_seed);
+            }
+            else if (strstr(trbuff, "(GA_SHIFT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_SHIFT)", strtok(trbuff, " "), "env.ga_shift", env.ga_shift);
+            }
+            else if (strstr(trbuff, "(GA_SPHERE_FOCUS_RESID)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GA_SPHERE_FOCUS_RESID)", strtok(trbuff, " "), "env.ga_focus_resid", env.ga_focus_resid);
+            }
+            else if (strstr(trbuff, "(GA_SPHERE_PROBE_RADIUS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GA_SPHERE_PROBE_RADIUS)", strtok(trbuff, " "), "env.ga_focus_probe_radius", env.ga_focus_probe_radius);
+            }
+            else if (strstr(trbuff, "(GRIDS_APBS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GRIDS_APBS)", strtok(trbuff, " "), "env.grids_apbs", env.grids_apbs);
+            }
+            else if (strstr(trbuff, "(GRIDS_DELPHI)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(GRIDS_DELPHI)", strtok(trbuff, " "), "env.grids_delphi", env.grids_delphi);
+            }
+            else if (strstr(trbuff, "(GRIDS_PER_ANG)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(GRIDS_PER_ANG)", strtok(trbuff, " "), "env.grids_per_ang", env.grids_per_ang);
+            }
+            else if (strstr(trbuff, "(H2O_SASCUTOFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(H2O_SASCUTOFF)", strtok(trbuff, " "), "env.h2o_sascutoff", env.h2o_sascutoff);
+            }
+            else if (strstr(trbuff, "(HDIRDIFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HDIRDIFF)", strtok(trbuff, " "), "env.hdirdiff", env.hdirdiff);
+            }
+            else if (strstr(trbuff, "(HDIRECTED)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(HDIRECTED)", strtok(trbuff, " "), "env.hdirected", env.hdirected);
+            }
+            else if (strstr(trbuff, "(HDIRLIMT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(HDIRLIMT)", strtok(trbuff, " "), "env.hdirlimt", env.hdirlimt);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_ELEC_DIST_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_ELEC_DIST_THR)", strtok(trbuff, " "), "env.hv_relax_elec_dist_thr", env.hv_relax_elec_dist_thr);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_HV_VDW_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_HV_VDW_THR)", strtok(trbuff, " "), "env.hv_relax_hv_vdw_thr", env.hv_relax_hv_vdw_thr);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_NGH_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_NGH_THR)", strtok(trbuff, " "), "env.hv_relax_ngh_thr", env.hv_relax_ngh_thr);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_INCLUDE_NGH)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(HV_RELAX_INCLUDE_NGH)", strtok(trbuff, " "), "env.hv_relax_include_ngh", env.hv_relax_include_ngh);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_ELEC_CRG_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_ELEC_CRG_THR)", strtok(trbuff, " "), "env.hv_relax_elec_crg_thr", env.hv_relax_elec_crg_thr);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_ELEC_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_ELEC_THR)", strtok(trbuff, " "), "env.hv_relax_elec_thr", env.hv_relax_elec_thr);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_NCYCLE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(HV_RELAX_NCYCLE)", strtok(trbuff, " "), "env.hv_relax_ncycle", env.hv_relax_ncycle);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_N_SHAKE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(HV_RELAX_N_SHAKE)", strtok(trbuff, " "), "env.hv_relax_n_shake", env.hv_relax_n_shake);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_CONSTRAINT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_CONSTRAINT)", strtok(trbuff, " "), "env.hv_relax_constraint", env.hv_relax_constraint);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_SHAKE_TOL)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_SHAKE_TOL)", strtok(trbuff, " "), "env.hv_relax_shake_tol", env.hv_relax_shake_tol);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_CONSTRAINT_FRC)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_CONSTRAINT_FRC)", strtok(trbuff, " "), "env.hv_relax_constraint_frc", env.hv_relax_constraint_frc);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_NITER)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(HV_RELAX_NITER)", strtok(trbuff, " "), "env.hv_relax_niter", env.hv_relax_niter);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_DT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_DT)", strtok(trbuff, " "), "env.hv_relax_dt", env.hv_relax_dt);
+            }
+            else if (strstr(trbuff, "(HV_RELAX_VDW_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_RELAX_VDW_THR)", strtok(trbuff, " "), "env.hv_relax_vdw_thr", env.hv_relax_vdw_thr);
+            }
+            else if (strstr(trbuff, "(HV_TORS_SCALE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(HV_TORS_SCALE)", strtok(trbuff, " "), "env.hv_tors_scale", env.hv_tors_scale);
+            }
+            else if (strstr(trbuff, "(INPDB)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(INPDB)", strtok(trbuff, " "), "env.inpdb", env.inpdb);
+            }
+            else if (strstr(trbuff, "(IONRAD)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(IONRAD)", strtok(trbuff, " "), "env.ionrad", env.ionrad);
+            }
+            else if (strstr(trbuff, "(IPECE_ADD_MEM)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(IPECE_ADD_MEM)", strtok(trbuff, " "), "env.ipece", env.ipece);
+            }
+            else if (strstr(trbuff, "(IPECE_GRID_SPACE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(IPECE_GRID_SPACE)", strtok(trbuff, " "), "env.ipece", env.ipece);
+            }
+            else if (strstr(trbuff, "(IPECE_MEM_CHAINID)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(IPECE_MEM_CHAINID)", strtok(trbuff, " "), "env.ipece", env.ipece);
+            }
+            else if (strstr(trbuff, "(IPECE_MEM_THICKNESS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(IPECE_MEM_THICKNESS)", strtok(trbuff, " "), "env.ipece", env.ipece);
+            }
+            else if (strstr(trbuff, "(IPECE_MEM_ATOM_RADIUS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(IPECE_MEM_ATOM_RADIUS)", strtok(trbuff, " "), "env.ipece", env.ipece);
+            }
+            else if (strstr(trbuff, "(MCCE_HOME)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(MCCE_HOME)", strtok(trbuff, " "), "env.mcce_home", env.mcce_home);
+            }
+            else if (strstr(trbuff, "(MFE_CUTOFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(MFE_CUTOFF)", strtok(trbuff, " "), "env.mfe_cutoff", env.mfe_cutoff);
+            }
+            else if (strstr(trbuff, "(MFE_POINT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MFE_POINT)", strtok(trbuff, " "), "env.mfe_flag", env.mfe_flag);
+            }
+            else if (strstr(trbuff, "(MINIMIZE_SIZE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MINIMIZE_SIZE)", strtok(trbuff, " "), "env.minimize_size", env.minimize_size);
+            }
+            else if (strstr(trbuff, "(MONTE_ADV_OPT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_ADV_OPT)", strtok(trbuff, " "), "env.monte_adv_opt", env.monte_adv_opt);
+            }
 
-                        /* MicroState Monte Carlo */
-                        else if (strstr(trbuff, "(MONTE_MS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_MS)", strtok(trbuff, " "), "env.monte_ms", env.monte_ms);
-        		}
+            /* MicroState Monte Carlo */
+            else if (strstr(trbuff, "(MONTE_MS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_MS)", strtok(trbuff, " "), "env.monte_ms", env.monte_ms);
+            }
             
-			else if (strstr(trbuff, "(MONTE_CONVERGE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(MONTE_CONVERGE)", strtok(trbuff, " "), "env.monte_converge", env.monte_converge);
-			}
-			else if (strstr(trbuff, "(MONTE_DO_ENERGY)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_DO_ENERGY)", strtok(trbuff, " "), "env.monte_do_energy", env.monte_do_energy);
-			}
-			else if (strstr(trbuff, "(MONTE_FLIPS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_FLIPS)", strtok(trbuff, " "), "env.monte_flips", env.monte_flips);
-			}
-			else if (strstr(trbuff, "(MONTE_NEQ)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NEQ)", strtok(trbuff, " "), "env.monte_neq", env.monte_neq);
-			}
-			else if (strstr(trbuff, "(MONTE_NITER_MAX)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER_MAX)", strtok(trbuff, " "), "env.monte_niter_max", env.monte_niter_max);
-			}
-			else if (strstr(trbuff, "(MONTE_NITER)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER)", strtok(trbuff, " "), "env.monte_niter", env.monte_niter);
-			}
-			else if (strstr(trbuff, "(MONTE_NITER_MIN)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER_MIN)", strtok(trbuff, " "), "env.monte_niter_min", env.monte_niter_min);
-			}
-			else if (strstr(trbuff, "(MONTE_NITER_CHK)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER_CHK)", strtok(trbuff, " "), "env.monte_niter_chk", env.monte_niter_chk);
-			}
-			else if (strstr(trbuff, "(MONTE_NITER_CYCLE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER_CYCLE)", strtok(trbuff, " "), "env.monte_niter_cycle", env.monte_niter_cycle);
-			}
-			else if (strstr(trbuff, "(MONTE_NSTART)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NSTART)", strtok(trbuff, " "), "env.monte_nstart", env.monte_nstart);
-			}
-			else if (strstr(trbuff, "(MONTE_N_REDUCE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_N_REDUCE)", strtok(trbuff, " "), "env.monte_n_red", env.monte_n_red);
-			}
-			else if (strstr(trbuff, "(MONTE_OLD_INPUT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_OLD_INPUT)", strtok(trbuff, " "), "env.monte_old_input", env.monte_old_input);
-			}
-			else if (strstr(trbuff, "(MONTE_PRINT_NONZERO)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_PRINT_NONZERO)", strtok(trbuff, " "), "env.monte_print_nonzero", env.monte_print_nonzero);
-			}
-			else if (strstr(trbuff, "(MONTE_REDUCE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(MONTE_REDUCE)", strtok(trbuff, " "), "env.monte_reduce", env.monte_reduce);
-			}
-			else if (strstr(trbuff, "(MONTE_RUNS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_RUNS)", strtok(trbuff, " "), "env.monte_runs", env.monte_runs);
-			}
-			else if (strstr(trbuff, "(MONTE_SEED)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_SEED)", strtok(trbuff, " "), "env.monte_seed", env.monte_seed);
-			}
-			else if (strstr(trbuff, "(MONTE_T)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(MONTE_T)", strtok(trbuff, " "), "env.monte_temp", env.monte_temp);
-			}
-			else if (strstr(trbuff, "(MONTE_TRACE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_TRACE)", strtok(trbuff, " "), "env.monte_trace", env.monte_trace);
-			}
-			else if (strstr(trbuff, "(MONTE_TSX)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_TSX)", strtok(trbuff, " "), "env.monte_tsx", env.monte_tsx);
-			}
-			else if (strstr(trbuff, "(NCONF_LIMIT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(NCONF_LIMIT)", strtok(trbuff, " "), "env.nconf_limit", env.nconf_limit);
-			}
-			else if (strstr(trbuff, "(NEWTPL)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(NEWTPL)", strtok(trbuff, " "), "env.new_tpl", env.new_tpl);
-			}
-			else if (strstr(trbuff, "(NGH_VDW_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(NGH_VDW_THR)", strtok(trbuff, " "), "env.ngh_vdw_thr", env.ngh_vdw_thr);
-			}
-			else if (strstr(trbuff, "(NSTATE_MAX)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(NSTATE_MAX)", strtok(trbuff, " "), "env.nstate_max", env.nstate_max);
-			}
-			else if (strstr(trbuff, "(N_HV_CONF_LIMIT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(N_HV_CONF_LIMIT)", strtok(trbuff, " "), "env.n_hv_conf_limit", env.n_hv_conf_limit);
-			}
-			else if (strstr(trbuff, "(N_INITIAL_RELAX)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(N_INITIAL_RELAX)", strtok(trbuff, " "), "env.n_initial_relax", env.n_initial_relax);
-			}
-			else if (strstr(trbuff, "(N_TRANS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(N_TRANS)", strtok(trbuff, " "), "env.n_trans", env.n_trans);
-			}
-			else if (strstr(trbuff, "(PACK)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(PACK)", strtok(trbuff, " "), "env.pack", env.pack);
-			}
-			else if (strstr(trbuff, "(PBE_END)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(PBE_END)", strtok(trbuff, " "), "env.pbe_end", env.pbe_end);
-			}
-			else if (strstr(trbuff, "(PBE_FOLDER)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(PBE_FOLDER)", strtok(trbuff, " "), "env.pbe_folder", env.pbe_folder);
-			}
-			else if (strstr(trbuff, "(PBE_SOLVER)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(PBE_SOLVER)", strtok(trbuff, " "), "env.pbe_solver", env.pbe_solver);
-			}
-			else if (strstr(trbuff, "(PBE_START)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(PBE_START)", strtok(trbuff, " "), "env.pbe_start", env.pbe_start);
-			}
-			else if (strstr(trbuff, "(PHI_SWING)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(PHI_SWING)", strtok(trbuff, " "), "env.phi_swing", env.phi_swing);
-			}
-			else if (strstr(trbuff, "(PROGRESS_LOG)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(PROGRESS_LOG)", strtok(trbuff, " "), "env.progress_log", env.progress_log);
-			}
-			else if (strstr(trbuff, "(PRUNE_ELE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(PRUNE_ELE)", strtok(trbuff, " "), "env.prune_ele", env.prune_ele);
-			}
-			else if (strstr(trbuff, "(PRUNE_RMSD)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(PRUNE_RMSD)", strtok(trbuff, " "), "env.prune_rmsd", env.prune_rmsd);
-			}
-			else if (strstr(trbuff, "(PRUNE_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(PRUNE_THR)", strtok(trbuff, " "), "env.prune_thr", env.prune_thr);
-			}
-			else if (strstr(trbuff, "(PRUNE_VDW)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(PRUNE_VDW)", strtok(trbuff, " "), "env.prune_vdw", env.prune_vdw);
-			}
-			else if (strstr(trbuff, "(RADIUS_PROBE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(RADIUS_PROBE)", strtok(trbuff, " "), "env.radius_probe", env.radius_probe);
-			}
-			else if (strstr(trbuff, "(REASSIGN)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(REASSIGN)", strtok(trbuff, " "), "env.reassign", env.reassign);
-			}
-			else if (strstr(trbuff, "(REBUILD_SC)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(REBUILD_SC)", strtok(trbuff, " "), "env.rebuild_sc", env.rebuild_sc);
-			}
-			else if (strstr(trbuff, "(RECALC_TORS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(RECALC_TORS)", strtok(trbuff, " "), "env.recalc_tors", env.recalc_tors);
-			}
-			else if (strstr(trbuff, "(RELAX_CLASH_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(RELAX_CLASH_THR)", strtok(trbuff, " "), "env.relax_clash_thr", env.relax_clash_thr);
-			}
-			else if (strstr(trbuff, "(RELAX_E_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(RELAX_E_THR)", strtok(trbuff, " "), "env.relax_e_thr", env.relax_e_thr);
-			}
-			else if (strstr(trbuff, "(RELAX_H)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_H)", strtok(trbuff, " "), "env.relax_h", env.relax_h);
-			}
-			else if (strstr(trbuff, "(RELAX_NITER)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_NITER)", strtok(trbuff, " "), "env.relax_niter", env.relax_niter);
-			}
-			else if (strstr(trbuff, "(RELAX_NSTATES)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_NSTATES)", strtok(trbuff, " "), "env.relax_nstates", env.relax_nstates);
-			}
-			else if (strstr(trbuff, "(RELAX_N_HYD)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_N_HYD)", strtok(trbuff, " "), "env.relax_n_hyd", env.relax_n_hyd);
-			}
-			else if (strstr(trbuff, "(RELAX_PHI)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(RELAX_PHI)", strtok(trbuff, " "), "env.relax_phi", env.relax_phi);
-			}
-			else if (strstr(trbuff, "(RELAX_TORQ_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(RELAX_TORQ_THR)", strtok(trbuff, " "), "env.relax_torq_thr", env.relax_torq_thr);
-			}
-			else if (strstr(trbuff, "(RELAX_WAT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_WAT)", strtok(trbuff, " "), "env.relax_wat", env.relax_wat);
-			}
-			else if (strstr(trbuff, "(RENAME_RULES)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(RENAME_RULES)", strtok(trbuff, " "), "env.rename_rules", env.rename_rules);
-			}
-			else if (strstr(trbuff, "(REPACKS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(REPACKS)", strtok(trbuff, " "), "env.repacks", env.repacks);
-			}
-			else if (strstr(trbuff, "(REPACK_CUTOFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(REPACK_CUTOFF)", strtok(trbuff, " "), "env.repack_cutoff", env.repack_cutoff);
-			}
-			else if (strstr(trbuff, "(REPACK_E_THR_BURIED)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(REPACK_E_THR_BURIED)", strtok(trbuff, " "), "env.repack_e_thr_buried", env.repack_e_thr_buried);
-			}
-			else if (strstr(trbuff, "(REPACK_E_THR_EXPOSED)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(REPACK_E_THR_EXPOSED)", strtok(trbuff, " "), "env.repack_e_thr_exposed", env.repack_e_thr_exposed);
-			}
-			else if (strstr(trbuff, "(REPACK_FAV_VDW_OFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(REPACK_FAV_VDW_OFF)", strtok(trbuff, " "), "env.repack_fav_vdw_off", env.repack_fav_vdw_off);
-			}
-			else if (strstr(trbuff, "(ROTAMER_LIMIT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(ROTAMER_LIMIT)", strtok(trbuff, " "), "env.rotamer_limit", env.rotamer_limit);
-			}
-			else if (strstr(trbuff, "(ROTATE_RES)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(ROTATE_RES)", strtok(trbuff, " "), "env.rotate_res", env.rotate_res);
-			}
-			else if (strstr(trbuff, "(ROTATIONS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(ROTATIONS)", strtok(trbuff, " "), "env.rotations", env.rotations);
-			}
-			else if (strstr(trbuff, "(ROT_SPECIF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(ROT_SPECIF)", strtok(trbuff, " "), "env.rot_specif", env.rot_specif);
-			}
-			else if (strstr(trbuff, "(ROT_SWAP)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(ROT_SWAP)", strtok(trbuff, " "), "env.rot_swap", env.rot_swap);
-			}
-			else if (strstr(trbuff, "(RXN_METHOD)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(RXN_METHOD)", strtok(trbuff, " "), "env.rxn_method", env.rxn_method);
-			}
-			else if (strstr(trbuff, "(SALT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(SALT)", strtok(trbuff, " "), "env.salt", env.salt);
-			}
-			else if (strstr(trbuff, "(SAS2VDW)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(SAS2VDW)", strtok(trbuff, " "), "env.sas2vdw", env.sas2vdw);
-			}
-			else if (strstr(trbuff, "(SAS_CUTOFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(SAS_CUTOFF)", strtok(trbuff, " "), "env.sas_cutoff", env.sas_cutoff);
-			}
-			else if (strstr(trbuff, "(SCALE_ELE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(SCALE_ELE)", strtok(trbuff, " "), "env.scale_ele", env.scale_ele);
-			}
-			else if (strstr(trbuff, "(SCALE_VDW)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(SCALE_VDW)", strtok(trbuff, " "), "env.scale_vdw", env.scale_vdw);
-			}
-			else if (strstr(trbuff, "(SIDECHAIN_OPT)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(SIDECHAIN_OPT)", strtok(trbuff, " "), "env.sidechain_opt", env.sidechain_opt);
-			}
-			else if (strstr(trbuff, "(SKIP_ELE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(SKIP_ELE)", strtok(trbuff, " "), "env.skip_ele", env.skip_ele);
-			}
-			else if (strstr(trbuff, "(SURFACE_APBS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31s\n", "(SURFACE_APBS)", strtok(trbuff, " "), "env.srfm", env.srfm);
-			}
-			else if (strstr(trbuff, "(SWING)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(SWING)", strtok(trbuff, " "), "env.swing", env.swing);
-			}
-			else if (strstr(trbuff, "(TERMINALS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(TERMINALS)", strtok(trbuff, " "), "env.terminals", env.terminals);
-			}
-			else if (strstr(trbuff, "(TEST_SEED)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(TEST_SEED)", strtok(trbuff, " "), "env.test_seed", env.test_seed);
-			}
-			else if (strstr(trbuff, "(TITR_EH0)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(TITR_EH0)", strtok(trbuff, " "), "env.titr_eh0", env.titr_eh0);
-			}
-			else if (strstr(trbuff, "(TITR_EHD)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(TITR_EHD)", strtok(trbuff, " "), "env.titr_ehd", env.titr_ehd);
-			}
-			else if (strstr(trbuff, "(TITR_PH0)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(TITR_PH0)", strtok(trbuff, " "), "env.titr_ph0", env.titr_ph0);
-			}
-			else if (strstr(trbuff, "(TITR_PHD)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(TITR_PHD)", strtok(trbuff, " "), "env.titr_phd", env.titr_phd);
-			}
-			else if (strstr(trbuff, "(TITR_STEPS)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(TITR_STEPS)", strtok(trbuff, " "), "env.titr_steps", env.titr_steps);
-			}
-			else if (strstr(trbuff, "(TITR_TYPE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(TITR_TYPE)", strtok(trbuff, " "), "env.titr_type", env.titr_type);
-			}
-			else if (strstr(trbuff, "(TRANS_DIST)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(TRANS_DIST)", strtok(trbuff, " "), "env.trans_dist", env.trans_dist);
-			}
-			else if (strstr(trbuff, "(VDWF1)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(VDWF1)", strtok(trbuff, " "), "env.vdwf1", env.vdwf1);
-			}
-			else if (strstr(trbuff, "(VDWF2)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(VDWF2)", strtok(trbuff, " "), "env.vdwf2", env.vdwf2);
-			}
-			else if (strstr(trbuff, "(VDW_CUTOFF)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(VDW_CUTOFF)", strtok(trbuff, " "), "env.vdw_cutoff", env.vdw_cutoff);
-			}
-			else if (strstr(trbuff, "(WARN_PAIRWISE)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(WARN_PAIRWISE)", strtok(trbuff, " "), "env.warn_pairwise", env.warn_pairwise);
-			}
-			else if (strstr(trbuff, "(WATER_RELAX_THR)")) {
-				fprintf(tr, "%31s%31s\t%31s%31f\n", "(WATER_RELAX_THR)", strtok(trbuff, " "), "env.water_relax_thr", env.water_relax_thr);
-			}
-			else if (strstr(trbuff, "(DO_CORRECTIONS")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_CORRECTIONS)", strtok(trbuff, " "), "env.do_corrections", env.do_corrections);
-			}
-			else if (strstr(trbuff, "(IGNORE_INPUT_H")) {
-				fprintf(tr, "%31s%31s\t%31s%31d\n", "(IGNORE_INPUT_H)", strtok(trbuff, " "), "env.ignore_input_h", env.ignore_input_h);
-			}
+            else if (strstr(trbuff, "(MONTE_CONVERGE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(MONTE_CONVERGE)", strtok(trbuff, " "), "env.monte_converge", env.monte_converge);
+            }
+            else if (strstr(trbuff, "(MONTE_DO_ENERGY)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_DO_ENERGY)", strtok(trbuff, " "), "env.monte_do_energy", env.monte_do_energy);
+            }
+            else if (strstr(trbuff, "(MONTE_FLIPS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_FLIPS)", strtok(trbuff, " "), "env.monte_flips", env.monte_flips);
+            }
+            else if (strstr(trbuff, "(MONTE_NEQ)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NEQ)", strtok(trbuff, " "), "env.monte_neq", env.monte_neq);
+            }
+            else if (strstr(trbuff, "(MONTE_NITER_MAX)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER_MAX)", strtok(trbuff, " "), "env.monte_niter_max", env.monte_niter_max);
+            }
+            else if (strstr(trbuff, "(MONTE_NITER)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER)", strtok(trbuff, " "), "env.monte_niter", env.monte_niter);
+            }
+            else if (strstr(trbuff, "(MONTE_NITER_MIN)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER_MIN)", strtok(trbuff, " "), "env.monte_niter_min", env.monte_niter_min);
+            }
+            else if (strstr(trbuff, "(MONTE_NITER_CHK)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER_CHK)", strtok(trbuff, " "), "env.monte_niter_chk", env.monte_niter_chk);
+            }
+            else if (strstr(trbuff, "(MONTE_NITER_CYCLE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NITER_CYCLE)", strtok(trbuff, " "), "env.monte_niter_cycle", env.monte_niter_cycle);
+            }
+            else if (strstr(trbuff, "(MONTE_NSTART)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_NSTART)", strtok(trbuff, " "), "env.monte_nstart", env.monte_nstart);
+            }
+            else if (strstr(trbuff, "(MONTE_N_REDUCE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_N_REDUCE)", strtok(trbuff, " "), "env.monte_n_red", env.monte_n_red);
+            }
+            else if (strstr(trbuff, "(MONTE_OLD_INPUT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_OLD_INPUT)", strtok(trbuff, " "), "env.monte_old_input", env.monte_old_input);
+            }
+            else if (strstr(trbuff, "(MONTE_PRINT_NONZERO)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_PRINT_NONZERO)", strtok(trbuff, " "), "env.monte_print_nonzero", env.monte_print_nonzero);
+            }
+            else if (strstr(trbuff, "(MONTE_REDUCE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(MONTE_REDUCE)", strtok(trbuff, " "), "env.monte_reduce", env.monte_reduce);
+            }
+            else if (strstr(trbuff, "(MONTE_RUNS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_RUNS)", strtok(trbuff, " "), "env.monte_runs", env.monte_runs);
+            }
+            else if (strstr(trbuff, "(MONTE_SEED)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_SEED)", strtok(trbuff, " "), "env.monte_seed", env.monte_seed);
+            }
+            else if (strstr(trbuff, "(MONTE_T)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(MONTE_T)", strtok(trbuff, " "), "env.monte_temp", env.monte_temp);
+            }
+            else if (strstr(trbuff, "(MONTE_TRACE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_TRACE)", strtok(trbuff, " "), "env.monte_trace", env.monte_trace);
+            }
+            else if (strstr(trbuff, "(MONTE_TSX)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(MONTE_TSX)", strtok(trbuff, " "), "env.monte_tsx", env.monte_tsx);
+            }
+            else if (strstr(trbuff, "(NCONF_LIMIT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(NCONF_LIMIT)", strtok(trbuff, " "), "env.nconf_limit", env.nconf_limit);
+            }
+            else if (strstr(trbuff, "(NEWTPL)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(NEWTPL)", strtok(trbuff, " "), "env.new_tpl", env.new_tpl);
+            }
+            else if (strstr(trbuff, "(NGH_VDW_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(NGH_VDW_THR)", strtok(trbuff, " "), "env.ngh_vdw_thr", env.ngh_vdw_thr);
+            }
+            else if (strstr(trbuff, "(NSTATE_MAX)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(NSTATE_MAX)", strtok(trbuff, " "), "env.nstate_max", env.nstate_max);
+            }
+            else if (strstr(trbuff, "(N_HV_CONF_LIMIT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(N_HV_CONF_LIMIT)", strtok(trbuff, " "), "env.n_hv_conf_limit", env.n_hv_conf_limit);
+            }
+            else if (strstr(trbuff, "(N_INITIAL_RELAX)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(N_INITIAL_RELAX)", strtok(trbuff, " "), "env.n_initial_relax", env.n_initial_relax);
+            }
+            else if (strstr(trbuff, "(N_TRANS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(N_TRANS)", strtok(trbuff, " "), "env.n_trans", env.n_trans);
+            }
+            else if (strstr(trbuff, "(PACK)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(PACK)", strtok(trbuff, " "), "env.pack", env.pack);
+            }
+            else if (strstr(trbuff, "(PBE_END)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(PBE_END)", strtok(trbuff, " "), "env.pbe_end", env.pbe_end);
+            }
+            else if (strstr(trbuff, "(PBE_FOLDER)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(PBE_FOLDER)", strtok(trbuff, " "), "env.pbe_folder", env.pbe_folder);
+            }
+            else if (strstr(trbuff, "(PBE_SOLVER)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(PBE_SOLVER)", strtok(trbuff, " "), "env.pbe_solver", env.pbe_solver);
+            }
+            else if (strstr(trbuff, "(PBE_START)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(PBE_START)", strtok(trbuff, " "), "env.pbe_start", env.pbe_start);
+            }
+            else if (strstr(trbuff, "(PHI_SWING)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(PHI_SWING)", strtok(trbuff, " "), "env.phi_swing", env.phi_swing);
+            }
+            else if (strstr(trbuff, "(PROGRESS_LOG)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(PROGRESS_LOG)", strtok(trbuff, " "), "env.progress_log", env.progress_log);
+            }
+            else if (strstr(trbuff, "(PRUNE_ELE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(PRUNE_ELE)", strtok(trbuff, " "), "env.prune_ele", env.prune_ele);
+            }
+            else if (strstr(trbuff, "(PRUNE_RMSD)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(PRUNE_RMSD)", strtok(trbuff, " "), "env.prune_rmsd", env.prune_rmsd);
+            }
+            else if (strstr(trbuff, "(PRUNE_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(PRUNE_THR)", strtok(trbuff, " "), "env.prune_thr", env.prune_thr);
+            }
+            else if (strstr(trbuff, "(PRUNE_VDW)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(PRUNE_VDW)", strtok(trbuff, " "), "env.prune_vdw", env.prune_vdw);
+            }
+            else if (strstr(trbuff, "(RADIUS_PROBE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(RADIUS_PROBE)", strtok(trbuff, " "), "env.radius_probe", env.radius_probe);
+            }
+            else if (strstr(trbuff, "(REASSIGN)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(REASSIGN)", strtok(trbuff, " "), "env.reassign", env.reassign);
+            }
+            else if (strstr(trbuff, "(REBUILD_SC)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(REBUILD_SC)", strtok(trbuff, " "), "env.rebuild_sc", env.rebuild_sc);
+            }
+            else if (strstr(trbuff, "(RECALC_TORS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(RECALC_TORS)", strtok(trbuff, " "), "env.recalc_tors", env.recalc_tors);
+            }
+            else if (strstr(trbuff, "(RELAX_CLASH_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(RELAX_CLASH_THR)", strtok(trbuff, " "), "env.relax_clash_thr", env.relax_clash_thr);
+            }
+            else if (strstr(trbuff, "(RELAX_E_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(RELAX_E_THR)", strtok(trbuff, " "), "env.relax_e_thr", env.relax_e_thr);
+            }
+            else if (strstr(trbuff, "(RELAX_H)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_H)", strtok(trbuff, " "), "env.relax_h", env.relax_h);
+            }
+            else if (strstr(trbuff, "(RELAX_NITER)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_NITER)", strtok(trbuff, " "), "env.relax_niter", env.relax_niter);
+            }
+            else if (strstr(trbuff, "(RELAX_NSTATES)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_NSTATES)", strtok(trbuff, " "), "env.relax_nstates", env.relax_nstates);
+            }
+            else if (strstr(trbuff, "(RELAX_N_HYD)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_N_HYD)", strtok(trbuff, " "), "env.relax_n_hyd", env.relax_n_hyd);
+            }
+            else if (strstr(trbuff, "(RELAX_PHI)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(RELAX_PHI)", strtok(trbuff, " "), "env.relax_phi", env.relax_phi);
+            }
+            else if (strstr(trbuff, "(RELAX_TORQ_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(RELAX_TORQ_THR)", strtok(trbuff, " "), "env.relax_torq_thr", env.relax_torq_thr);
+            }
+            else if (strstr(trbuff, "(RELAX_WAT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(RELAX_WAT)", strtok(trbuff, " "), "env.relax_wat", env.relax_wat);
+            }
+            else if (strstr(trbuff, "(RENAME_RULES)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(RENAME_RULES)", strtok(trbuff, " "), "env.rename_rules", env.rename_rules);
+            }
+            else if (strstr(trbuff, "(REPACKS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(REPACKS)", strtok(trbuff, " "), "env.repacks", env.repacks);
+            }
+            else if (strstr(trbuff, "(REPACK_CUTOFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(REPACK_CUTOFF)", strtok(trbuff, " "), "env.repack_cutoff", env.repack_cutoff);
+            }
+            else if (strstr(trbuff, "(REPACK_E_THR_BURIED)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(REPACK_E_THR_BURIED)", strtok(trbuff, " "), "env.repack_e_thr_buried", env.repack_e_thr_buried);
+            }
+            else if (strstr(trbuff, "(REPACK_E_THR_EXPOSED)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(REPACK_E_THR_EXPOSED)", strtok(trbuff, " "), "env.repack_e_thr_exposed", env.repack_e_thr_exposed);
+            }
+            else if (strstr(trbuff, "(REPACK_FAV_VDW_OFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(REPACK_FAV_VDW_OFF)", strtok(trbuff, " "), "env.repack_fav_vdw_off", env.repack_fav_vdw_off);
+            }
+            else if (strstr(trbuff, "(ROTAMER_LIMIT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(ROTAMER_LIMIT)", strtok(trbuff, " "), "env.rotamer_limit", env.rotamer_limit);
+            }
+            else if (strstr(trbuff, "(ROTATE_RES)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(ROTATE_RES)", strtok(trbuff, " "), "env.rotate_res", env.rotate_res);
+            }
+            else if (strstr(trbuff, "(ROTATIONS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(ROTATIONS)", strtok(trbuff, " "), "env.rotations", env.rotations);
+            }
+            else if (strstr(trbuff, "(ROT_SPECIF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(ROT_SPECIF)", strtok(trbuff, " "), "env.rot_specif", env.rot_specif);
+            }
+            else if (strstr(trbuff, "(ROT_SWAP)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(ROT_SWAP)", strtok(trbuff, " "), "env.rot_swap", env.rot_swap);
+            }
+            else if (strstr(trbuff, "(RXN_METHOD)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(RXN_METHOD)", strtok(trbuff, " "), "env.rxn_method", env.rxn_method);
+            }
+            else if (strstr(trbuff, "(SALT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(SALT)", strtok(trbuff, " "), "env.salt", env.salt);
+            }
+            else if (strstr(trbuff, "(SAS2VDW)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(SAS2VDW)", strtok(trbuff, " "), "env.sas2vdw", env.sas2vdw);
+            }
+            else if (strstr(trbuff, "(SAS_CUTOFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(SAS_CUTOFF)", strtok(trbuff, " "), "env.sas_cutoff", env.sas_cutoff);
+            }
+            else if (strstr(trbuff, "(SCALE_ELE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(SCALE_ELE)", strtok(trbuff, " "), "env.scale_ele", env.scale_ele);
+            }
+            else if (strstr(trbuff, "(SCALE_VDW)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(SCALE_VDW)", strtok(trbuff, " "), "env.scale_vdw", env.scale_vdw);
+            }
+            else if (strstr(trbuff, "(SIDECHAIN_OPT)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(SIDECHAIN_OPT)", strtok(trbuff, " "), "env.sidechain_opt", env.sidechain_opt);
+            }
+            else if (strstr(trbuff, "(SKIP_ELE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(SKIP_ELE)", strtok(trbuff, " "), "env.skip_ele", env.skip_ele);
+            }
+            else if (strstr(trbuff, "(SURFACE_APBS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31s\n", "(SURFACE_APBS)", strtok(trbuff, " "), "env.srfm", env.srfm);
+            }
+            else if (strstr(trbuff, "(SWING)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(SWING)", strtok(trbuff, " "), "env.swing", env.swing);
+            }
+            else if (strstr(trbuff, "(TERMINALS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(TERMINALS)", strtok(trbuff, " "), "env.terminals", env.terminals);
+            }
+            else if (strstr(trbuff, "(TEST_SEED)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(TEST_SEED)", strtok(trbuff, " "), "env.test_seed", env.test_seed);
+            }
+            else if (strstr(trbuff, "(TITR_EH0)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(TITR_EH0)", strtok(trbuff, " "), "env.titr_eh0", env.titr_eh0);
+            }
+            else if (strstr(trbuff, "(TITR_EHD)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(TITR_EHD)", strtok(trbuff, " "), "env.titr_ehd", env.titr_ehd);
+            }
+            else if (strstr(trbuff, "(TITR_PH0)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(TITR_PH0)", strtok(trbuff, " "), "env.titr_ph0", env.titr_ph0);
+            }
+            else if (strstr(trbuff, "(TITR_PHD)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(TITR_PHD)", strtok(trbuff, " "), "env.titr_phd", env.titr_phd);
+            }
+            else if (strstr(trbuff, "(TITR_STEPS)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(TITR_STEPS)", strtok(trbuff, " "), "env.titr_steps", env.titr_steps);
+            }
+            else if (strstr(trbuff, "(TITR_TYPE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(TITR_TYPE)", strtok(trbuff, " "), "env.titr_type", env.titr_type);
+            }
+            else if (strstr(trbuff, "(TRANS_DIST)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(TRANS_DIST)", strtok(trbuff, " "), "env.trans_dist", env.trans_dist);
+            }
+            else if (strstr(trbuff, "(VDWF1)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(VDWF1)", strtok(trbuff, " "), "env.vdwf1", env.vdwf1);
+            }
+            else if (strstr(trbuff, "(VDWF2)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(VDWF2)", strtok(trbuff, " "), "env.vdwf2", env.vdwf2);
+            }
+            else if (strstr(trbuff, "(VDW_CUTOFF)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(VDW_CUTOFF)", strtok(trbuff, " "), "env.vdw_cutoff", env.vdw_cutoff);
+            }
+            else if (strstr(trbuff, "(WARN_PAIRWISE)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(WARN_PAIRWISE)", strtok(trbuff, " "), "env.warn_pairwise", env.warn_pairwise);
+            }
+            else if (strstr(trbuff, "(WATER_RELAX_THR)")) {
+                fprintf(tr, "%31s%31s\t%31s%31f\n", "(WATER_RELAX_THR)", strtok(trbuff, " "), "env.water_relax_thr", env.water_relax_thr);
+            }
+            else if (strstr(trbuff, "(DO_CORRECTIONS")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(DO_CORRECTIONS)", strtok(trbuff, " "), "env.do_corrections", env.do_corrections);
+            }
+            else if (strstr(trbuff, "(IGNORE_INPUT_H")) {
+                fprintf(tr, "%31s%31s\t%31s%31d\n", "(IGNORE_INPUT_H)", strtok(trbuff, " "), "env.ignore_input_h", env.ignore_input_h);
+            }
 			
-		}
+        }
     	fclose(fp);
     	fclose(tr);
     }

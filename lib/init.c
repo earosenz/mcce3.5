@@ -112,8 +112,8 @@ int init() {
 }
 
 
-int get_env()
-{   FILE *fp;
+int get_env() {
+    FILE *fp;
     char sbuff[256];
     char *str1;
     /* vars related to run.trace */

@@ -5,7 +5,8 @@
 #include <math.h>
 #include "mcce.h"
 
-ENV env;
+void make_env(ENV *);
+
 
 int init() {
     FILE *fp;
@@ -14,7 +15,7 @@ int init() {
 
     printf("   Load run control file \"%s\"...\n", FN_RUNPRM);
     fflush(stdout);
-    if (get_env()) {
+    if (get_env() < 0) {
         printf("   FATAL: init(): \"failed initializing.\"\n");
         return USERERR;
     } else {
@@ -111,8 +112,8 @@ int init() {
 }
 
 
-int get_env()
-{   FILE *fp;
+int get_env() {
+    FILE *fp;
     char sbuff[256];
     char *str1;
     /* vars related to run.trace */
@@ -122,188 +123,11 @@ int get_env()
     FILE *tr;
     char trbuff[256];
     FILE *ent;
+    ENV env;
 
-    memset(&env, 0, sizeof(ENV));
-
-    /* Default values */
-    //======== Salah edit this ======
-    env.titr_type = 'p';
-    env.titr_ph0 = 0.0;
-    env.titr_phd = 1.0;
-    env.titr_eh0 = 0.0;
-    env.titr_ehd = 30.0;
-    env.titr_steps = 15;
+    make_env(&env);
     dotrace = 1;
-    env.clash_distance = 2.0;
-    env.h2o_sascutoff = 0.05;
-    // step 2
-    env.rot_swap = 1;
-    env.rebuild_sc = 0;
-    env.pack = 0;
-    env.rotations = 0;
-    env.sas_cutoff = 1.00;
-    env.vdw_cutoff = 10.0;
-    env.repacks = 5000;
-    env.repack_cutoff = 0.01;
-    env.relax_e_thr = -1.0;
-    env.relax_nstates = 100;
-    env.relax_phi = 3.1415926/180.0;
-    env.relax_niter = 300;
-    env.relax_torq_thr = 0.5;
-    // Step 3
-    env.epsilon_solv = 80.0;
-    env.grids_delphi = 65;
-    env.grids_per_ang = 2.0;
-    env.radius_probe = 1.4;
-    // Step 4
-    env.monte_temp = 298.15;
-    env.monte_flips = 3;
-    env.monte_nstart = 100;
-    env.monte_neq = 300;
-    env.monte_reduce = 0.001;
-    env.monte_runs = 6;
-    env.monte_niter = 2000;
-    env.monte_trace = 50000;
-    env.nstate_max = 1000000;
-    // Step 5
-    env.display_potential_map = 0;
-    env.only_backbone = 0;
-    env.column_number = 0;
-    env.mfe_pka = 0;
-    //===============================
 
-    env.test_seed = -1;
-    env.minimize_size = 0;
-    env.PI                = 4.*atan(1.);
-    env.d2r               = env.PI/180.;
-    strcpy(env.debug_log,    "debug.log");
-    strcpy(env.new_tpl,      "new.tpl");
-    strcpy(env.progress_log, "progress.log");
-    strcpy(env.extra, "extra.tpl");
-    env.reassign     = 0;
-    env.pbe_start = 0;
-    env.pbe_end   = 999999;
-    strcpy(env.pbe_solver, "delphi");
-    strcpy(env.rxn_method, "self");		/*surface or self energies*/
-    env.rot_specif   = 0;
-    env.prune_thr = 0.01;
-    env.ngh_vdw_thr  = 0.1;
-    env.repack_e_thr_exposed  = 0.5;
-    env.repack_e_thr_buried  = 4.;
-    env.repack_fav_vdw_off   = 0;
-    env.nconf_limit       =    0;
-    env.n_hv_conf_limit   =   20;
-    env.relax_wat         =    1;
-    env.trans_dist        =  0.5;
-
-    env.hdirected         =    0;
-    env.hdirdiff          =  1.0;
-    env.hdirlimt          =   36;
-
-    env.water_relax_thr   =  2.4;
-
-    env.n_initial_relax     =  0;
-    //env.initial_relax_rebuild = 0;
-
-    env.hv_relax_ncycle     =  0;
-    env.hv_relax_niter      = 50;
-    env.hv_relax_vdw_thr    =  5;
-    env.hv_relax_hv_vdw_thr =  5;
-    env.hv_relax_elec_thr   =  -2.0;
-    env.hv_relax_elec_crg_thr =  0.1;
-    env.hv_relax_elec_dist_thr = 2.4;
-    env.hv_relax_dt         =  1;
-    env.hv_tors_scale       =  1;
-    env.hv_relax_constraint =  1.;
-    env.hv_relax_constraint_frc = 10.;
-    env.hv_relax_n_shake    =  3000;
-    env.hv_relax_shake_tol =  1e-4;  /* Ratio to constraint distance */
-    env.hv_relax_include_ngh    =  0;
-    env.hv_relax_ngh_thr    =  4.;
-    env.prune_rmsd        = 2.0;
-    env.prune_ele         = 2.0;
-    env.prune_vdw         = 2.0;
-
-
-    env.relax_n_hyd       =    36;
-    env.relax_clash_thr   =  10.;
-
-    env.recalc_tors     = 0;
-
-    env.default_radius = 1.7;
-    env.factor_14lj = 0.5;
-    env.epsilon_coulomb = 6.;
-    
-    env.sas2vdw = -0.06;
-    
-    env.warn_pairwise     = 20.0;
-    env.big_pairwise      = 5.0;
-    /*
-      env.monte_adv_opt     =    1;
-    */
-    env.monte_adv_opt     =    0;      /* defaut value in mcce2.5    ----Cai */
-
-    env.anneal_temp_start = ROOMT;
-    env.anneal_nstep      =    1;
-    env.monte_tsx         =    0;
-    env.anneal_niter_step =   30;
-    env.monte_niter_max   =   -1;
-    env.adding_conf       =    0;
-    env.monte_old_input   =    0;
-    env.monte_niter_chk   =  100;
-    env.monte_converge    = 1e-4;
-    env.monte_do_energy   =    0;
-    env.monte_print_nonzero =  1;
-    strcpy(env.pbe_folder, "/tmp");
-    env.delphi_clean      =  1;
-    env.ionrad = 0.0;
-    env.salt = 0.10;
-
-    env.monte_ms          =    1;    /* MicroState Monte Carlo flag---Cai*/
-    env.ms_out            =    1;    /* monte_ms variable ----Cai */
-    env.always_scale_vdw  =    1;    /* monte_ms variable ----Cai */
-
-    /* default value for IPECE */
-    memset(&env.ipece,0,sizeof(IPECE));
-    
-    env.ipece.grid_space = 1.0;
-    
-    env.ipece.mem_position_defined = 0;
-    env.ipece.probe_radius = 1.40;
-    env.ipece.surface_exp_dist = 5.;
-    
-    env.ipece.boundary_extention = 5.;
-    env.ipece.half_mem_thickness = 15.;
-    env.ipece.mem_separation = 3.;
-    env.ipece.membrane_size = 10.;
-    strcpy(env.ipece.mem_resName, "MEM");
-    env.ipece.mem_chainID = 'X';
-    env.ipece.mem_atom_radius = 1.7;
-
-    env.ipece.beta = 0.2;
-    env.ipece.n_iteration = 500;
-    env.ipece.translation_max = 3.;
-    env.ipece.rotation_max = 10.*env.d2r;
-
-    env.mfe_cutoff = 0.0;
-    env.mfe_point = 0.0;
-    env.mfe_flag = 0;
-    env.scale_vdw0=-1.0;
-    env.scale_vdw1=-1.0;
-    env.scale_vdw=-1.0;
-    /* apbs */
-
-    env.fg_scale = 1.5;
-    env.grids_apbs = 129;
-    strcpy(env.apbs_method, "mg-auto");
-    strcpy(env.srfm, "mol");     /*model used to construct the dielectric and ion-accessibility coefficients*/
-    strcpy(env.chgm, "spl0");    /*method by which the biomolecular point charges are mapped to the grid*/
-    strcpy(env.bcfl, "sdh");     /*specify the type of boundry condition used -"Single Debye-H√ºckel" boundary condition*/
-    strcpy(env.apbs_exe, "apbs");
-    
-    env.ignore_input_h = 1;
-    env.do_corrections = 1;
-     
     /* open "run.prm" to read in mcce environment variables */
     if ((fp=fopen(FN_RUNPRM, "r")) == NULL) {
         printf("   FATAL: get_env(): \"No run control file %s.\"\n", FN_RUNPRM);
@@ -1570,3 +1394,185 @@ int get_env()
     return 0;
 }
 
+void make_env(ENV *env_ptr) {
+    memset(env_ptr, 0, sizeof(ENV));
+
+    /* Default values */
+    //======== Salah edit this ======
+    env_ptr->titr_type = 'p';
+    env_ptr->titr_ph0 = 0.0;
+    env_ptr->titr_phd = 1.0;
+    env_ptr->titr_eh0 = 0.0;
+    env_ptr->titr_ehd = 30.0;
+    env_ptr->titr_steps = 15;
+
+    env_ptr->clash_distance = 2.0;
+    env_ptr->h2o_sascutoff = 0.05;
+    // step 2
+    env_ptr->rot_swap = 1;
+    env_ptr->rebuild_sc = 0;
+    env_ptr->pack = 0;
+    env_ptr->rotations = 0;
+    env_ptr->sas_cutoff = 1.00;
+    env_ptr->vdw_cutoff = 10.0;
+    env_ptr->repacks = 5000;
+    env_ptr->repack_cutoff = 0.01;
+    env_ptr->relax_e_thr = -1.0;
+    env_ptr->relax_nstates = 100;
+    env_ptr->relax_phi = 3.1415926/180.0;
+    env_ptr->relax_niter = 300;
+    env_ptr->relax_torq_thr = 0.5;
+    // Step 3
+    env_ptr->epsilon_solv = 80.0;
+    env_ptr->grids_delphi = 65;
+    env_ptr->grids_per_ang = 2.0;
+    env_ptr->radius_probe = 1.4;
+    // Step 4
+    env_ptr->monte_temp = 298.15;
+    env_ptr->monte_flips = 3;
+    env_ptr->monte_nstart = 100;
+    env_ptr->monte_neq = 300;
+    env_ptr->monte_reduce = 0.001;
+    env_ptr->monte_runs = 6;
+    env_ptr->monte_niter = 2000;
+    env_ptr->monte_trace = 50000;
+    env_ptr->nstate_max = 1000000;
+    // Step 5
+    env_ptr->display_potential_map = 0;
+    env_ptr->only_backbone = 0;
+    env_ptr->column_number = 0;
+    env_ptr->mfe_pka = 0;
+    //===============================
+
+    env_ptr->test_seed = -1;
+    env_ptr->minimize_size = 0;
+    env_ptr->PI                = 4.*atan(1.);
+    env_ptr->d2r               = env_ptr->PI/180.;
+    strcpy(env_ptr->debug_log,    "debug.log");
+    strcpy(env_ptr->new_tpl,      "new.tpl");
+    strcpy(env_ptr->progress_log, "progress.log");
+    strcpy(env_ptr->extra, "extra.tpl");
+    env_ptr->reassign     = 0;
+    env_ptr->pbe_start = 0;
+    env_ptr->pbe_end   = 999999;
+    strcpy(env_ptr->pbe_solver, "delphi");
+    strcpy(env_ptr->rxn_method, "self");		/*surface or self energies*/
+    env_ptr->rot_specif   = 0;
+    env_ptr->prune_thr = 0.01;
+    env_ptr->ngh_vdw_thr  = 0.1;
+    env_ptr->repack_e_thr_exposed  = 0.5;
+    env_ptr->repack_e_thr_buried  = 4.;
+    env_ptr->repack_fav_vdw_off   = 0;
+    env_ptr->nconf_limit       =    0;
+    env_ptr->n_hv_conf_limit   =   20;
+    env_ptr->relax_wat         =    1;
+    env_ptr->trans_dist        =  0.5;
+
+    env_ptr->hdirected         =    0;
+    env_ptr->hdirdiff          =  1.0;
+    env_ptr->hdirlimt          =   36;
+
+    env_ptr->water_relax_thr   =  2.4;
+
+    env_ptr->n_initial_relax     =  0;
+    //env_ptr->initial_relax_rebuild = 0;
+
+    env_ptr->hv_relax_ncycle     =  0;
+    env_ptr->hv_relax_niter      = 50;
+    env_ptr->hv_relax_vdw_thr    =  5;
+    env_ptr->hv_relax_hv_vdw_thr =  5;
+    env_ptr->hv_relax_elec_thr   =  -2.0;
+    env_ptr->hv_relax_elec_crg_thr =  0.1;
+    env_ptr->hv_relax_elec_dist_thr = 2.4;
+    env_ptr->hv_relax_dt         =  1;
+    env_ptr->hv_tors_scale       =  1;
+    env_ptr->hv_relax_constraint =  1.;
+    env_ptr->hv_relax_constraint_frc = 10.;
+    env_ptr->hv_relax_n_shake    =  3000;
+    env_ptr->hv_relax_shake_tol =  1e-4;  /* Ratio to constraint distance */
+    env_ptr->hv_relax_include_ngh    =  0;
+    env_ptr->hv_relax_ngh_thr    =  4.;
+    env_ptr->prune_rmsd        = 2.0;
+    env_ptr->prune_ele         = 2.0;
+    env_ptr->prune_vdw         = 2.0;
+
+
+    env_ptr->relax_n_hyd       =    36;
+    env_ptr->relax_clash_thr   =  10.;
+
+    env_ptr->recalc_tors     = 0;
+
+    env_ptr->default_radius = 1.7;
+    env_ptr->factor_14lj = 0.5;
+    env_ptr->epsilon_coulomb = 6.;
+
+    env_ptr->sas2vdw = -0.06;
+
+    env_ptr->warn_pairwise     = 20.0;
+    env_ptr->big_pairwise      = 5.0;
+    /*
+      env_ptr->monte_adv_opt     =    1;
+    */
+    env_ptr->monte_adv_opt     =    0;      /* defaut value in mcce2.5    ----Cai */
+
+    env_ptr->anneal_temp_start = ROOMT;
+    env_ptr->anneal_nstep      =    1;
+    env_ptr->monte_tsx         =    0;
+    env_ptr->anneal_niter_step =   30;
+    env_ptr->monte_niter_max   =   -1;
+    env_ptr->adding_conf       =    0;
+    env_ptr->monte_old_input   =    0;
+    env_ptr->monte_niter_chk   =  100;
+    env_ptr->monte_converge    = 1e-4;
+    env_ptr->monte_do_energy   =    0;
+    env_ptr->monte_print_nonzero =  1;
+    strcpy(env_ptr->pbe_folder, "/tmp");
+    env_ptr->delphi_clean      =  1;
+    env_ptr->ionrad = 0.0;
+    env_ptr->salt = 0.10;
+
+    env_ptr->monte_ms          =    1;    /* MicroState Monte Carlo flag---Cai*/
+    env_ptr->ms_out            =    1;    /* monte_ms variable ----Cai */
+    env_ptr->always_scale_vdw  =    1;    /* monte_ms variable ----Cai */
+
+    /* default value for IPECE */
+    memset(&env_ptr->ipece,0,sizeof(IPECE));
+
+    env_ptr->ipece.grid_space = 1.0;
+
+    env_ptr->ipece.mem_position_defined = 0;
+    env_ptr->ipece.probe_radius = 1.40;
+    env_ptr->ipece.surface_exp_dist = 5.;
+
+    env_ptr->ipece.boundary_extention = 5.;
+    env_ptr->ipece.half_mem_thickness = 15.;
+    env_ptr->ipece.mem_separation = 3.;
+    env_ptr->ipece.membrane_size = 10.;
+    strcpy(env_ptr->ipece.mem_resName, "MEM");
+    env_ptr->ipece.mem_chainID = 'X';
+    env_ptr->ipece.mem_atom_radius = 1.7;
+
+    env_ptr->ipece.beta = 0.2;
+    env_ptr->ipece.n_iteration = 500;
+    env_ptr->ipece.translation_max = 3.;
+    env_ptr->ipece.rotation_max = 10.*env_ptr->d2r;
+
+    env_ptr->mfe_cutoff = 0.0;
+    env_ptr->mfe_point = 0.0;
+    env_ptr->mfe_flag = 0;
+    env_ptr->scale_vdw0=-1.0;
+    env_ptr->scale_vdw1=-1.0;
+    env_ptr->scale_vdw=-1.0;
+    /* apbs */
+
+    env_ptr->fg_scale = 1.5;
+    env_ptr->grids_apbs = 129;
+    strcpy(env_ptr->apbs_method, "mg-auto");
+    strcpy(env_ptr->srfm, "mol");     /*model used to construct the dielectric and ion-accessibility coefficients*/
+    strcpy(env_ptr->chgm, "spl0");    /*method by which the biomolecular point charges are mapped to the grid*/
+    strcpy(env_ptr->bcfl, "sdh");     /*specify the type of boundry condition used -"Single Debye-H√ºckel" boundary condition*/
+    strcpy(env_ptr->apbs_exe, "apbs");
+
+    env_ptr->ignore_input_h = 1;
+    env_ptr->do_corrections = 1;
+}

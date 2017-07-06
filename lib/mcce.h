@@ -649,7 +649,7 @@ typedef struct {
     char  average_pairwise;
     float warn_pairwise;
 
-	int   test_seed;
+    int   test_seed;
 
     int   monte_seed;
     float monte_temp;

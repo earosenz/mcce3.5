@@ -12,12 +12,23 @@ int init()
     float kscale;
     time_t now;
 
-    printf("   Load run control file \"%s\"...\n", FN_RUNPRM); fflush(stdout);
-    if (get_env()) {printf("   FATAL: init(): \"failed initializing.\"\n"); return USERERR;}
-    else {printf("   Done\n\n"); fflush(stdout);}
+    printf("   Load run control file \"%s\"...\n", FN_RUNPRM);
+    fflush(stdout);
+    if (get_env()) {
+        printf("   FATAL: init(): \"failed initializing.\"\n");
+        return USERERR;
+    }
+    else {
+        printf("   Done\n\n");
+        fflush(stdout);
+    }
 
-    printf("   Tentatively load local param file \"%s\"...", env.new_tpl); fflush(stdout);
-    if (env.do_premcce) remove(env.new_tpl);
+    printf("   Tentatively load local param file \"%s\"...", env.new_tpl);
+    fflush(stdout);
+    if (env.do_premcce) {
+        remove(env.new_tpl);
+    }
+
     if ((fp=fopen(env.new_tpl, "r"))) {
         fclose(fp);
         if (load_param(env.new_tpl)) {
@@ -26,15 +37,27 @@ int init()
         }
         printf("   File loaded.\n");
     }
-    else printf("   No such file, ignore.\n");
-    printf("   Done\n\n");
-    fflush(stdout);
-    
-    printf("   Load parameters from directory \"%s\" ... \n", env.param); fflush(stdout);
-    if (load_all_param(env.param)) {printf("   FATAL: init(): \"failed.\"\n"); return USERERR;}
-    else {printf("   Done\n\n"); fflush(stdout);}
+    else {
+        printf("   No such file, ignore.\n");
+    }
 
-    printf("   Load linear free energy correction parameters from \"%s\"...", env.extra);fflush(stdout);
+    printf("   Done\n\n");
+
+    fflush(stdout);
+
+    printf("   Load parameters from directory \"%s\" ... \n", env.param);
+    fflush(stdout);
+    if (load_all_param(env.param)) {
+        printf("   FATAL: init(): \"failed.\"\n");
+        return USERERR;
+    }
+    else {
+        printf("   Done\n\n");
+        fflush(stdout);
+    }
+
+    printf("   Load linear free energy correction parameters from \"%s\"...", env.extra);
+    fflush(stdout);
     if ((fp=fopen(env.extra, "r"))) {
         printf("%s\n", env.extra);
         fclose(fp);
@@ -46,6 +69,7 @@ int init()
     }
     else printf("   No such file, ignore.\n");
     printf("   Done\n\n");
+
     fflush(stdout);
 
     /* Order of scale values (highest has priority):

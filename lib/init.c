@@ -7,17 +7,27 @@
 
 ENV env;
 
-int init()
-{   FILE *fp;
+int init() {
+    FILE *fp;
     float kscale;
     time_t now;
 
-    printf("   Load run control file \"%s\"...\n", FN_RUNPRM); fflush(stdout);
-    if (get_env()) {printf("   FATAL: init(): \"failed initializing.\"\n"); return USERERR;}
-    else {printf("   Done\n\n"); fflush(stdout);}
+    printf("   Load run control file \"%s\"...\n", FN_RUNPRM);
+    fflush(stdout);
+    if (get_env()) {
+        printf("   FATAL: init(): \"failed initializing.\"\n");
+        return USERERR;
+    } else {
+        printf("   Done\n\n");
+        fflush(stdout);
+    }
 
-    printf("   Tentatively load local param file \"%s\"...", env.new_tpl); fflush(stdout);
-    if (env.do_premcce) remove(env.new_tpl);
+    printf("   Tentatively load local param file \"%s\"...", env.new_tpl);
+    fflush(stdout);
+    if (env.do_premcce) {
+        remove(env.new_tpl);
+    }
+
     if ((fp=fopen(env.new_tpl, "r"))) {
         fclose(fp);
         if (load_param(env.new_tpl)) {
@@ -25,16 +35,28 @@ int init()
             return USERERR;
         }
         printf("   File loaded.\n");
+    } else {
+        printf("   No such file, ignore.\n");
     }
-    else printf("   No such file, ignore.\n");
-    printf("   Done\n\n");
-    fflush(stdout);
-    
-    printf("   Load parameters from directory \"%s\" ... \n", env.param); fflush(stdout);
-    if (load_all_param(env.param)) {printf("   FATAL: init(): \"failed.\"\n"); return USERERR;}
-    else {printf("   Done\n\n"); fflush(stdout);}
 
-    printf("   Load linear free energy correction parameters from \"%s\"...", env.extra);fflush(stdout);
+    printf("   Done\n\n");
+
+    fflush(stdout);
+
+    printf("   Load parameters from directory \"%s\" ... \n", env.param);
+    fflush(stdout);
+
+    if (load_all_param(env.param)) {
+        printf("   FATAL: init(): \"failed.\"\n");
+        return USERERR;
+    } else {
+        printf("   Done\n\n");
+        fflush(stdout);
+    }
+
+    printf("   Load linear free energy correction parameters from \"%s\"...", env.extra);
+    fflush(stdout);
+
     if ((fp=fopen(env.extra, "r"))) {
         printf("%s\n", env.extra);
         fclose(fp);
@@ -43,8 +65,10 @@ int init()
             return USERERR;
         }
         printf("   File loaded.\n");
+    } else {
+        printf("   No such file, ignore.\n");
     }
-    else printf("   No such file, ignore.\n");
+
     printf("   Done\n\n");
     fflush(stdout);
 
@@ -54,25 +78,34 @@ int init()
      * 3. default value from env.epsilon_prot
      */
     kscale = 1.0; /*/env.epsilon_prot;*/ /* scaling factor based on dielectric constant */
-    if (env.scale_vdw0 < 0) {
-    	if (param_get("SCALING", "VDW0", "", &env.scale_vdw0))  env.scale_vdw0   = 1.0*kscale;
+    if ((env.scale_vdw0 < 0) && (param_get("SCALING", "VDW0", "", &env.scale_vdw0))) {
+        env.scale_vdw0 = 1.0 * kscale;
     }
-    if (env.scale_vdw1 < 0) {
-    	if (param_get("SCALING", "VDW1",  "", &env.scale_vdw1)) env.scale_vdw1   = 1.0*kscale;
+    if ((env.scale_vdw1 < 0) && (param_get("SCALING", "VDW1",  "", &env.scale_vdw1))) {
+	env.scale_vdw1 = 1.0 * kscale;
     }
-    if (env.scale_vdw < 0) {
-    	if (param_get("SCALING", "VDW",   "", &env.scale_vdw)) env.scale_vdw     = 1.0*kscale;
+    if ((env.scale_vdw < 0) && (param_get("SCALING", "VDW",   "", &env.scale_vdw))) {
+            env.scale_vdw = 1.0 * kscale;
     }
-    if (param_get("SCALING", "TORS",  "", &env.scale_tor)) env.scale_tor     = 1.0*kscale;
-    if (param_get("SCALING", "ELE",   "", &env.scale_ele)) env.scale_ele     = 1.0;
-    if (param_get("SCALING", "DSOLV", "", &env.scale_dsolv)) env.scale_dsolv = 1.0;
+    if (param_get("SCALING", "TORS",  "", &env.scale_tor)) {
+        env.scale_tor = 1.0 * kscale;
+    }
+    if (param_get("SCALING", "ELE",   "", &env.scale_ele)) {
+        env.scale_ele = 1.0;
+    }
+    if (param_get("SCALING", "DSOLV", "", &env.scale_dsolv)) {
+        env.scale_dsolv = 1.0;
+    }
 
     remove(env.debug_log);
     remove(env.progress_log);
 	
     now = time(NULL);
-    if (env.test_seed < 0) srand(now); //allows random numbers to be fixed for testing
-    else srand(env.test_seed);
+    if (env.test_seed < 0) {
+        srand(now); //allows random numbers to be fixed for testing
+    } else {
+        srand(env.test_seed);
+    }
 
     return 0;
 }

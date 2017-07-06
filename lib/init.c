@@ -6,6 +6,7 @@
 #include "mcce.h"
 
 void make_env(ENV *);
+int is_comment(char *);
 
 
 int init() {
@@ -129,16 +130,17 @@ int get_env() {
     dotrace = 1;
 
     /* open "run.prm" to read in mcce environment variables */
-    if ((fp=fopen(FN_RUNPRM, "r")) == NULL) {
+    if ((fp = fopen(FN_RUNPRM, "r")) == NULL) {
         printf("   FATAL: get_env(): \"No run control file %s.\"\n", FN_RUNPRM);
         return USERERR;
     }
 
     /* user values */
     while (fgets(sbuff, sizeof(sbuff), fp)) {
-    	if (sbuff[0] == '#') {
+        if (is_comment(sbuff)) {
             continue;
         }
+
     	if (strstr(sbuff, "(DO_TRACE)")) {
             str1 = strtok(sbuff, " ");
             if (str1[0] == 't') dotrace = 1;
@@ -1390,6 +1392,13 @@ int get_env() {
         }
     	fclose(fp);
     	fclose(tr);
+    }
+    return 0;
+}
+
+int is_comment(char *sbuff) {
+    if (sbuff[0] == '#') {
+        return 1;
     }
     return 0;
 }

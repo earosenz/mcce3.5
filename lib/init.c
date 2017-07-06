@@ -7,8 +7,8 @@
 
 ENV env;
 
-int init()
-{   FILE *fp;
+int init() {
+    FILE *fp;
     float kscale;
     time_t now;
 
@@ -17,8 +17,7 @@ int init()
     if (get_env()) {
         printf("   FATAL: init(): \"failed initializing.\"\n");
         return USERERR;
-    }
-    else {
+    } else {
         printf("   Done\n\n");
         fflush(stdout);
     }
@@ -36,8 +35,7 @@ int init()
             return USERERR;
         }
         printf("   File loaded.\n");
-    }
-    else {
+    } else {
         printf("   No such file, ignore.\n");
     }
 
@@ -47,17 +45,18 @@ int init()
 
     printf("   Load parameters from directory \"%s\" ... \n", env.param);
     fflush(stdout);
+
     if (load_all_param(env.param)) {
         printf("   FATAL: init(): \"failed.\"\n");
         return USERERR;
-    }
-    else {
+    } else {
         printf("   Done\n\n");
         fflush(stdout);
     }
 
     printf("   Load linear free energy correction parameters from \"%s\"...", env.extra);
     fflush(stdout);
+
     if ((fp=fopen(env.extra, "r"))) {
         printf("%s\n", env.extra);
         fclose(fp);
@@ -66,10 +65,11 @@ int init()
             return USERERR;
         }
         printf("   File loaded.\n");
+    } else {
+        printf("   No such file, ignore.\n");
     }
-    else printf("   No such file, ignore.\n");
-    printf("   Done\n\n");
 
+    printf("   Done\n\n");
     fflush(stdout);
 
     /* Order of scale values (highest has priority):
@@ -103,8 +103,7 @@ int init()
     now = time(NULL);
     if (env.test_seed < 0) {
         srand(now); //allows random numbers to be fixed for testing
-    }
-    else {
+    } else {
         srand(env.test_seed);
     }
 
